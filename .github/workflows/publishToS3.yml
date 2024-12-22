@@ -24,7 +24,7 @@ jobs:
       - name: Build project
         run: npm run build
       - name: debug
-        run: echo ${{ secrets.AWS_REGION }}
+        run: echo "region ${{ secrets.AWS_REGION }}"
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
