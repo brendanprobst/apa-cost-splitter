@@ -284,6 +284,7 @@ function App() {
 				totalShouldHavePaid: shouldHavePaid[player.name] || 0,
 			}))
 		);
+		// add totalPaid to players
 
 		// Calculate initial net balances
 		const netBalances = {};
@@ -355,7 +356,15 @@ function App() {
 		let summary = "";
 		// Loop through each player to build their summary string
 		players.forEach((player) => {
-			let oweString = `${player.name} owes `;
+			console.log(player, player.totalPaid, player.totalShouldHavePaid);
+			let balanceString = `${
+				player.totalPaid > player.totalShouldHavePaid
+					? "Should receive "
+					: "Owes "
+			} a total of $${Math.abs(
+				player.totalShouldHavePaid - player.totalPaid
+			).toFixed(2)}\n`;
+			let oweString = `${player.name}: ${balanceString}`;
 
 			// Combine all debts by person owed to, summing up amounts
 			const consolidatedDebts = player.owes.reduce((acc, owe) => {
@@ -376,11 +385,11 @@ function App() {
 			} else {
 				// Format each debt as "amount to person"
 				oweString += realDebts
-					.map(([owedTo, amount]) => `${amount.toFixed(2)} to ${owedTo}`)
-					.join(", ");
+					.map(([owedTo, amount]) => `- ${amount.toFixed(2)} to ${owedTo}`)
+					.join("\n");
 			}
 			if (oweString.indexOf("nothing") === -1) {
-				summary += oweString + "\n";
+				summary += oweString + "\n\n";
 			}
 		});
 
@@ -1119,22 +1128,57 @@ function App() {
 										return acc;
 									}, {});
 
+									// Get debts this player owes to others
 									const debts = Object.entries(consolidatedDebts).filter(
 										([owedTo, amount]) => owedTo !== player.name && amount > 0
 									);
 
-									if (debts.length === 0) {
+									// Get debts others owe to this player
+									const receivables = players.reduce((acc, otherPlayer) => {
+										if (otherPlayer.name === player.name) return acc;
+
+										const amount = otherPlayer.owes.reduce(
+											(sum, owe) =>
+												owe.owedTo === player.name ? sum + owe.amount : sum,
+											0
+										);
+
+										if (amount > 0) {
+											acc.push([otherPlayer.name, amount]);
+										}
+										return acc;
+									}, []);
+
+									if (debts.length === 0 && receivables.length === 0) {
 										return;
 									}
 
 									return (
 										<div>
-											<h4 className="subtitle">Who to pay</h4>
-											{debts.map(([owedTo, amount], index) => (
-												<li key={index} className="owe-item">
-													${amount.toFixed(2)} to {owedTo}
-												</li>
-											))}
+											{debts.length ? (
+												<>
+													<h4 className="subtitle">Who to pay</h4>
+													{debts.map(([owedTo, amount], index) => (
+														<li key={index} className="owe-item">
+															${amount.toFixed(2)} to {owedTo}
+														</li>
+													))}
+												</>
+											) : (
+												<></>
+											)}
+											{receivables.length ? (
+												<>
+													<h4 className="subtitle">Who owes you</h4>
+													{receivables.map(([owedBy, amount], index) => (
+														<li key={index} className="owe-item">
+															${amount.toFixed(2)} from {owedBy}
+														</li>
+													))}
+												</>
+											) : (
+												<></>
+											)}
 										</div>
 									);
 								})()}
