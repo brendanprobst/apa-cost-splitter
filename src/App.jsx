@@ -100,7 +100,8 @@ function App() {
 		useHubMethod: true,
 	});
 	const [manageTeamModal, setManageTeamModal] = useState(false);
-
+	const [advancedCostSplittingInfoModal, setAdvancedCostSplittingInfoModal] =
+		useState(false);
 	const togglePlayerPlayedMatch = (name) => {
 		setPlayers((prev) =>
 			prev.map((player) =>
@@ -356,7 +357,7 @@ function App() {
 		//CRITICAL DON'T LET THIS STRING START WITH A WORD FOLLOWED BY A COLON
 		// BLAHBLAH: <-- BAD
 
-		let summary = "Cost Summary\n\n";
+		let summary = "Cost Breakdown\n\n";
 		// Loop through each player to build their summary string
 		players.forEach((player) => {
 			console.log(player, player.totalPaid, player.totalShouldHavePaid);
@@ -1059,9 +1060,17 @@ function App() {
 							}))
 						}
 					/>
-					<span>Use Hub Method for Debt Consolidation</span>
+					<span>
+						Use <i>Advanced Cost Splitting</i>
+					</span>
 				</label>
+				<button
+					className="btn-link"
+					onClick={() => setAdvancedCostSplittingInfoModal(true)}>
+					What does <i>Advanced Cost Splitting</i> do?
+				</button>
 			</div>
+			{advancedCostSplittingInfoModal && renderAdvancedCostSplittingInfoModal()}
 		</div>
 	);
 
@@ -1192,33 +1201,6 @@ function App() {
 					))}
 				</div>
 			</div>
-			{/* {players.map((player) => (
-				<div key={player.name} className="player-summary">
-					<h3 className="player-name">{player.name} Owes</h3>
-					<ul className="owes-list">
-						{(() => {
-							const consolidatedDebts = player.owes.reduce((acc, owe) => {
-								acc[owe.owedTo] = (acc[owe.owedTo] || 0) + owe.amount;
-								return acc;
-							}, {});
-
-							const debts = Object.entries(consolidatedDebts).filter(
-								([owedTo, amount]) => owedTo !== player.name && amount > 0
-							);
-
-							if (debts.length === 0) {
-								return <li className="owe-item">nothing</li>;
-							}
-
-							return debts.map(([owedTo, amount], index) => (
-								<li key={index} className="owe-item">
-									${amount.toFixed(2)} to {owedTo}
-								</li>
-							));
-						})()}
-					</ul>
-				</div>
-			))} */}
 			<h3 className="summary-title">Cost Breakdown</h3>
 			{costs.map((cost) => (
 				<div key={cost.name} className="cost-summary">
@@ -1302,6 +1284,35 @@ function App() {
 						Save
 					</button>
 					<button onClick={() => setManageTeamModal(false)}>Cancel</button>
+				</div>
+			</div>
+		</div>
+	);
+	const renderAdvancedCostSplittingInfoModal = () => (
+		<div className="modal-overlay">
+			<div className="modal-content">
+				<h2>Advanced Cost Splitting</h2>
+				<h3>
+					<i>Advanced Cost Splitting</i> will consolidate debts to minimize the
+					number of transactions needed to settle up. This is useful when
+					multiple players paid for shared costs.
+				</h3>
+				<p>
+					For example, if Player A owes Player B $10 and Player B owes Player C
+					$10, the system will consolidate these debts so that Player A pays
+					Player C $10 directly.
+				</p>
+				<p className="subtle">
+					Please note that this feature is experimental and may not always
+					produce the most optimal results. When in doubt, please use the{" "}
+					<b>Paid</b> and <b>Should Have Paid</b> values to verify the results.
+					If you encounter any issues, please{" "}
+					<a href="mailto:bprobst1029@gmail.com">contact me</a>.
+				</p>
+				<div className="modal-actions">
+					<button onClick={() => setAdvancedCostSplittingInfoModal(false)}>
+						Close
+					</button>
 				</div>
 			</div>
 		</div>

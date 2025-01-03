@@ -13,6 +13,10 @@ body {
 p {
 	margin: 2px;
 }
+p.subtle {
+	color: #666;
+	font-size: 0.75rem;
+}
 .hidden {
 	display: none !important;
 }
@@ -118,6 +122,15 @@ button:hover {
 .btn-success {
 	background-color: #229853;
 }
+button.btn-link {
+	background: none;
+	border: none;
+	padding: 0;
+	color: #3498db;
+	text-decoration: underline;
+	cursor: pointer;
+	font-size: inherit;
+}
 button.success-btn:hover {
 	background-color: #27ae60;
 }
@@ -126,6 +139,11 @@ button.error-btn {
 }
 button.error-btn:hover {
 	background-color: #c0392b;
+}
+button.btn-link:hover {
+	color: #2980b9;
+	background: none;
+	text-decoration: none;
 }
 .next-button,
 .previous-button {
@@ -248,6 +266,9 @@ button.error-btn:hover {
 	margin-bottom: 20px;
 	border-bottom: 2px solid #3498db;
 	padding-bottom: 10px;
+}
+.modal-content p {
+	margin-bottom: 20px;
 }
 
 .form-group {
