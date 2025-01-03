@@ -353,7 +353,10 @@ function App() {
 		// Generate a concise summary string
 		console.log("About to consolidate who owes who");
 		console.log(players);
-		let summary = "";
+		//CRITICAL DON'T LET THIS STRING START WITH A WORD FOLLOWED BY A COLON
+		// BLAHBLAH: <-- BAD
+
+		let summary = "Cost Summary\n\n";
 		// Loop through each player to build their summary string
 		players.forEach((player) => {
 			console.log(player, player.totalPaid, player.totalShouldHavePaid);
