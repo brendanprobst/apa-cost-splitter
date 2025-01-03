@@ -403,7 +403,9 @@ function App() {
 	};
 	const copyWhoOwesWho = () => {
 		const message = generateOwsString();
-		navigator.clipboard.writeText(message).then(
+		// Decode URL encoded text if needed
+		const decodedMessage = decodeURIComponent(message);
+		navigator.clipboard.writeText(decodedMessage).then(
 			() => {
 				alert("Summary copied to clipboard!");
 			},
