@@ -1,3 +1,5 @@
+	// const hasLoadedFormData = useRef(false);
+	// const hasLoadedTeamData = useRef(false);
 // const loadPersistentFormDate = () => {
 		// 	// if (hasLoadedTeamData.current) {
 		// 	const rawFormData = localStorage.getItem("persistentFormState");
@@ -50,3 +52,23 @@
 	// 	});
 	// }, [playersNames]);
 	// save any changes to form as they happen
+
+
+
+	// // Force a re-render when the localstorage is updated
+// useEffect(() => {
+// 	const cookieValue = Cookies.get("persistentFormState");
+// 	if (cookieValue) {
+// 		const parsedCookie = JSON.parse(cookieValue);
+// 		// Only update state if the values are different
+// 		if (JSON.stringify(parsedCookie.players) !== JSON.stringify(players)) {
+// 			setPlayers(parsedCookie.players);
+// 		}
+// 		if (JSON.stringify(parsedCookie.costs) !== JSON.stringify(costs)) {
+// 			setCosts(parsedCookie.costs);
+// 		}
+// 		if (parsedCookie.formState !== formState) {
+// 			setFormState(parsedCookie.formState);
+// 		}
+// 	}
+// }, []);

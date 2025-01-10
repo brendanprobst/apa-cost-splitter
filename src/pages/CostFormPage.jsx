@@ -9,6 +9,7 @@ import { initialCosts } from "../utils/constants/costs/initialCosts";
 import { AdvancedCostSplittingInfoModal } from "../components/modals/AdvancedCostSplittingInfoModal";
 import { useGlobal } from "../providers/global/useGlobal";
 import { AppFooter } from "../components/layout/AppFooter";
+import { PlayerAttendanceView } from "../components/views/PlayerAttendanceView";
 
 export const CostFormPage = () => {
 	const {
@@ -63,11 +64,6 @@ export const CostFormPage = () => {
 
 		return closestWeek || "1"; // Default to week 1 if no past week found
 	};
-	// const hasLoadedFormData = useRef(false);
-	// const hasLoadedTeamData = useRef(false);
-	// const urlParams = new URLSearchParams(window.location.search);
-
-	// const [teamNumber, setTeamNumber] = useState("");
 
 	const [currentWeek, setCurrentWeek] = useState("");
 	const [addingCost, setAddingCost] = useState(false);
@@ -84,25 +80,6 @@ export const CostFormPage = () => {
 		isAdvancedCostSplittingInfoModalOpen,
 		setIsAdvancedCostSplittingInfoModalOpen,
 	] = useState(false);
-	const togglePlayerPlayedMatch = (name) => {
-		setPlayers((prev) =>
-			prev.map((player) =>
-				player.name === name
-					? { ...player, playedMatch: !player.playedMatch, attended: true }
-					: player
-			)
-		);
-	};
-
-	const togglePlayerAttended = (name) => {
-		setPlayers((prev) =>
-			prev.map((player) =>
-				player.name === name
-					? { ...player, attended: !player.attended }
-					: player
-			)
-		);
-	};
 
 	const toggleCostEditing = (costName) => {
 		setCosts((prev) =>
@@ -624,69 +601,6 @@ export const CostFormPage = () => {
 		localStorage.removeItem("persistentFormState");
 	};
 
-	const renderPlayerForm = () => (
-		<div className="player-form">
-			<h2 className="form-title">Player Attendance</h2>
-			<div className="player-header">
-				<span className="player-name">Player Name</span>
-				<span className="checkbox-label">Played</span>
-				<span className="checkbox-label">Attended</span>
-			</div>
-			{players.map((player) => (
-				<div key={player.name} className="player-item">
-					<span className="player-name">{player.name}</span>
-					<label className="checkbox-label">
-						<input
-							type="checkbox"
-							checked={player.playedMatch}
-							onChange={() => togglePlayerPlayedMatch(player.name)}
-							className="checkbox-input"
-						/>
-						<span className="hidden">Played Match</span>
-					</label>
-					<label className="checkbox-label">
-						<input
-							type="checkbox"
-							checked={player.attended}
-							onChange={() => togglePlayerAttended(player.name)}
-							className="checkbox-input"
-						/>
-						<span className="hidden">Attended</span>
-					</label>
-				</div>
-			))}
-			<h3>League Dues</h3>
-			<select
-				onChange={(e) => assignPayerToCost(e.target.value, "League Dues")}
-				className="payer-select">
-				<option value="">Who Paid the League Dues?</option>
-				{players.map((player) => (
-					<option key={player.name} value={player.name}>
-						{player.name}
-					</option>
-				))}
-			</select>
-			<h3>Table Fees</h3>
-			<select
-				onChange={(e) => assignPayerToCost(e.target.value, "Table Fees")}
-				className="payer-select">
-				<option value="">Who Paid the Table Fees?</option>
-				{players.map((player) => (
-					<option key={player.name} value={player.name}>
-						{player.name}
-					</option>
-				))}
-			</select>
-			<input
-				type="number"
-				placeholder="Table Fees Amount"
-				onChange={(e) =>
-					assignAmountToCost("Table Fees", parseFloat(e.target.value))
-				}
-			/>
-		</div>
-	);
-
 	const renderCostForm = () => (
 		<div className="cost-form">
 			<h2 className="form-title">Assign Additional Costs</h2>
@@ -1116,7 +1030,7 @@ export const CostFormPage = () => {
 			<CurrentState />
 
 			<div className="page">
-				{formState === 0 && renderPlayerForm()}
+				{formState === 0 ? <PlayerAttendanceView /> : <></>}
 				{formState === 1 && renderCostForm()}
 				{formState === 2 && renderSummary()}
 				<div className="flex gap-2">
@@ -1138,21 +1052,3 @@ export const CostFormPage = () => {
 		</div>
 	);
 };
-
-// // Force a re-render when the localstorage is updated
-// useEffect(() => {
-// 	const cookieValue = Cookies.get("persistentFormState");
-// 	if (cookieValue) {
-// 		const parsedCookie = JSON.parse(cookieValue);
-// 		// Only update state if the values are different
-// 		if (JSON.stringify(parsedCookie.players) !== JSON.stringify(players)) {
-// 			setPlayers(parsedCookie.players);
-// 		}
-// 		if (JSON.stringify(parsedCookie.costs) !== JSON.stringify(costs)) {
-// 			setCosts(parsedCookie.costs);
-// 		}
-// 		if (parsedCookie.formState !== formState) {
-// 			setFormState(parsedCookie.formState);
-// 		}
-// 	}
-// }, []);
