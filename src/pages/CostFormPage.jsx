@@ -6,6 +6,7 @@ import { updatePersistentTeamData } from "../utils/functions/localStorage/update
 import { CurrentState } from "../components/dev/CurrentState";
 import { useCosts } from "../providers/costs/useCosts";
 import { initialCosts } from "../utils/constants/costs/initialCosts";
+import { AdvancedCostSplittingInfoModal } from "../components/modals/AdvancedCostSplittingInfoModal";
 
 export const CostFormPage = () => {
 	const {
@@ -76,8 +77,10 @@ export const CostFormPage = () => {
 	const [settings, setSettings] = useState({
 		useHubMethod: true,
 	});
-	const [advancedCostSplittingInfoModal, setAdvancedCostSplittingInfoModal] =
-		useState(false);
+	const [
+		isAdvancedCostSplittingInfoModalOpen,
+		setIsAdvancedCostSplittingInfoModalOpen,
+	] = useState(false);
 	const togglePlayerPlayedMatch = (name) => {
 		setPlayers((prev) =>
 			prev.map((player) =>
@@ -952,11 +955,14 @@ export const CostFormPage = () => {
 				</label>
 				<button
 					className="btn-link"
-					onClick={() => setAdvancedCostSplittingInfoModal(true)}>
+					onClick={() => setIsAdvancedCostSplittingInfoModalOpen(true)}>
 					What does <i>Advanced Cost Splitting</i> do?
 				</button>
 			</div>
-			{advancedCostSplittingInfoModal && renderAdvancedCostSplittingInfoModal()}
+			<AdvancedCostSplittingInfoModal
+				isOpen={isAdvancedCostSplittingInfoModalOpen}
+				setIsOpen={setIsAdvancedCostSplittingInfoModalOpen}
+			/>
 		</div>
 	);
 
@@ -1104,35 +1110,6 @@ export const CostFormPage = () => {
 		</div>
 	);
 
-	const renderAdvancedCostSplittingInfoModal = () => (
-		<div className="modal-overlay">
-			<div className="modal-content">
-				<h2>Advanced Cost Splitting</h2>
-				<h3>
-					<i>Advanced Cost Splitting</i> will consolidate debts to minimize the
-					number of transactions needed to settle up. This is useful when
-					multiple players paid for shared costs.
-				</h3>
-				<p>
-					For example, if Player A owes Player B $10 and Player B owes Player C
-					$10, the system will consolidate these debts so that Player A pays
-					Player C $10 directly.
-				</p>
-				<p className="subtle">
-					Please note that this feature is experimental and may not always
-					produce the most optimal results. When in doubt, please use the{" "}
-					<b>Paid</b> and <b>Should Have Paid</b> values to verify the results.
-					If you encounter any issues, please{" "}
-					<a href="mailto:bprobst1029@gmail.com">contact me</a>.
-				</p>
-				<div className="modal-actions">
-					<button onClick={() => setAdvancedCostSplittingInfoModal(false)}>
-						Close
-					</button>
-				</div>
-			</div>
-		</div>
-	);
 	return (
 		<div className="app-container">
 			<CostPageHeader
