@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { CostPageHeader } from "../components/layout/CostPageHeader";
 import { useTeam } from "../providers/team/useTeam";
 import { emptyPlayer } from "../utils/constants/players/emptyPlayer";
@@ -7,6 +7,7 @@ import { CurrentState } from "../components/dev/CurrentState";
 import { useCosts } from "../providers/costs/useCosts";
 import { initialCosts } from "../utils/constants/costs/initialCosts";
 import { AdvancedCostSplittingInfoModal } from "../components/modals/AdvancedCostSplittingInfoModal";
+import { useGlobal } from "../providers/global/useGlobal";
 
 export const CostFormPage = () => {
 	const {
@@ -19,7 +20,9 @@ export const CostFormPage = () => {
 		setPlayersNames,
 	} = useTeam();
 	const { costs, setCosts } = useCosts();
+	const { formState, setFormState } = useGlobal();
 	console.log("teamName", teamName);
+
 	const leagueZelleEmail = "brooklynqueenspayment@gmail.com";
 	const weeks = {
 		1: new Date("2024-09-26T18:00:00-04:00"),
@@ -63,7 +66,6 @@ export const CostFormPage = () => {
 	// const hasLoadedTeamData = useRef(false);
 	// const urlParams = new URLSearchParams(window.location.search);
 
-	const [formState, setFormState] = useState(0);
 	// const [teamNumber, setTeamNumber] = useState("");
 
 	const [currentWeek, setCurrentWeek] = useState("");
@@ -617,14 +619,6 @@ export const CostFormPage = () => {
 		updatePersistentFormData(players, costs, formState);
 	}, [players, costs, formState]);
 	const clearForm = () => {
-		const clearedPlayers = players.map((player) => ({
-			...player,
-			playedMatch: false,
-			attended: false,
-			owes: [],
-		}));
-		setPlayers(clearedPlayers);
-		setCosts(initialCosts);
 		setFormState(0);
 		localStorage.removeItem("persistentFormState");
 	};
@@ -1117,15 +1111,9 @@ export const CostFormPage = () => {
 				teamNumber={teamName}
 				players={players}
 			/>
+
 			<CurrentState />
 
-			<div className="sub-header">
-				<button
-					className="clear-form-button error-btn"
-					onClick={() => clearForm()}>
-					Start Over
-				</button>
-			</div>
 			<div className="page">
 				{formState === 0 && renderPlayerForm()}
 				{formState === 1 && renderCostForm()}

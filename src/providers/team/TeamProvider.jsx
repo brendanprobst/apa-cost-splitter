@@ -22,6 +22,15 @@ export const TeamProvider = ({ children }) => {
 	const [teamNumber, setTeamNumber] = useState(_teamNumber);
 	const [players, setPlayers] = useState(_initialPlayers);
 
+	const resetPlayerFormState = () => {
+		const clearedPlayers = players.map((player) => ({
+			...player,
+			playedMatch: false,
+			attended: false,
+			owes: [],
+		}));
+		setPlayers(clearedPlayers);
+	};
 	const value = {
 		teamName,
 		teamNumber,
@@ -31,6 +40,7 @@ export const TeamProvider = ({ children }) => {
 		setPlayers,
 		playersNames,
 		setPlayersNames,
+		resetPlayerFormState,
 	};
 	return <TeamContext.Provider value={value}>{children}</TeamContext.Provider>;
 };

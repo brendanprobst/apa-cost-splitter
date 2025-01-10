@@ -3,13 +3,16 @@ import PropTypes from "prop-types";
 import { CostsContext } from "./CostsContext";
 import { initialCosts } from "../../utils/constants/costs/initialCosts";
 
-export const TeamProvider = ({ children }) => {
+export const CostsProvider = ({ children }) => {
 	const [costs, setCosts] = useState(initialCosts);
-	const value = { costs, setCosts };
+	const resetCostsFormState = () => {
+		setCosts(initialCosts);
+	};
+	const value = { costs, setCosts, resetCostsFormState };
 	return (
 		<CostsContext.Provider value={value}>{children}</CostsContext.Provider>
 	);
 };
-TeamProvider.propTypes = {
+CostsProvider.propTypes = {
 	children: PropTypes.node.isRequired,
 };
