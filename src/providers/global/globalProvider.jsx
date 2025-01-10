@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { GlobalContext } from "./globalContext";
+import { GlobalContext } from "./GlobalContext";
 
 export const GlobalProvider = ({ children }) => {
 	const [formState, setFormState] = useState(0);
