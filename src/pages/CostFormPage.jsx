@@ -8,6 +8,7 @@ import { useCosts } from "../providers/costs/useCosts";
 import { initialCosts } from "../utils/constants/costs/initialCosts";
 import { AdvancedCostSplittingInfoModal } from "../components/modals/AdvancedCostSplittingInfoModal";
 import { useGlobal } from "../providers/global/useGlobal";
+import { AppFooter } from "../components/layout/AppFooter";
 
 export const CostFormPage = () => {
 	const {
@@ -1133,11 +1134,7 @@ export const CostFormPage = () => {
 					</button>
 				</div>
 			</div>
-			<footer className="footer">
-				<a href="mailto:bprobst1029@gmail.com">
-					Please direct all feedback or issues here
-				</a>
-			</footer>
+			<AppFooter />
 		</div>
 	);
 };
