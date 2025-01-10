@@ -210,6 +210,11 @@ button.btn-link:hover {
 	font-style: italic;
 	color: #3498db;
 }
+.team-number {
+	font-size: 16px;
+	opacity: 0.7;
+	margin: 4px 0 20px;
+}
 /* Sub-header styles */
 .sub-header {
 	background-color: #ecf0f1;
