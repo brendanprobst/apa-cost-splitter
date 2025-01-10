@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useTeam } from "../../ContextProviders/team/useTeam";
+import { useTeam } from "../../providers/team/useTeam";
 import { emptyPlayer } from "../../utils/constants/players/emptyPlayer";
 import PropTypes from "prop-types";
 import { pushStateToUrl } from "../../utils/functions/localStorage/pushStateToUrl";

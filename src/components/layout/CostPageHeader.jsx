@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ManageTeamModal } from "../modals/ManageTeamModal";
 import PropTypes from "prop-types";
-import { useTeam } from "../../ContextProviders/team/useTeam";
+import { useTeam } from "../../providers/team/useTeam";
 
 export const CostPageHeader = ({ players }) => {
 	const { teamName, teamNumber } = useTeam();

@@ -1,9 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
 import { CostPageHeader } from "../components/layout/CostPageHeader";
-import { useTeam } from "../ContextProviders/team/useTeam";
+import { useTeam } from "../providers/team/useTeam";
 import { emptyPlayer } from "../utils/constants/players/emptyPlayer";
 import { updatePersistentTeamData } from "../utils/functions/localStorage/updatePersistentTeamData";
 import { CurrentState } from "../components/dev/CurrentState";
+import { useCosts } from "../providers/costs/useCosts";
+import { initialCosts } from "../utils/constants/costs/initialCosts";
 
 export const CostFormPage = () => {
 	const {
@@ -15,6 +17,7 @@ export const CostFormPage = () => {
 		setPlayers,
 		setPlayersNames,
 	} = useTeam();
+	const { costs, setCosts } = useCosts();
 	console.log("teamName", teamName);
 	const leagueZelleEmail = "brooklynqueenspayment@gmail.com";
 	const weeks = {
@@ -59,29 +62,9 @@ export const CostFormPage = () => {
 	// const hasLoadedTeamData = useRef(false);
 	// const urlParams = new URLSearchParams(window.location.search);
 
-	const _initialCosts = useMemo(
-		() => [
-			{
-				name: "League Dues",
-				cost: 60,
-				sharedBy: [],
-				paidBy: null,
-				currentlyEditing: false,
-			},
-			{
-				name: "Table Fees",
-				cost: null,
-				sharedBy: [],
-				paidBy: null,
-				currentlyEditing: false,
-			},
-		],
-		[]
-	);
-
 	const [formState, setFormState] = useState(0);
 	// const [teamNumber, setTeamNumber] = useState("");
-	const [costs, setCosts] = useState(_initialCosts);
+
 	const [currentWeek, setCurrentWeek] = useState("");
 	const [addingCost, setAddingCost] = useState(false);
 	const [newCost, setNewCost] = useState({
@@ -602,70 +585,21 @@ export const CostFormPage = () => {
 				console.warn("No team data found in URL or local storage");
 			}
 		};
-		// const loadPersistentFormDate = () => {
-		// 	// if (hasLoadedTeamData.current) {
-		// 	const rawFormData = localStorage.getItem("persistentFormState");
-		// 	if (rawFormData) {
-		// 		const formData = JSON.parse(rawFormData);
-		// 		console.log("Found the form data fro local storage", formData);
-		// 		if (
-		// 			formData.players &&
-		// 			formData.costs &&
-		// 			formData.formState !== undefined
-		// 		) {
-		// 			if (
-		// 				JSON.stringify(formData.players) !==
-		// 					JSON.stringify([emptyPlayer]) &&
-		// 				JSON.stringify(formData.costs) !== JSON.stringify(_initialCosts) &&
-		// 				formState === 0
-		// 			) {
-		// 				console.log("FORM STATE IS INITIAL STATE: DO NOTHING");
-		// 			} else {
-		// 				setPlayers(formData.players);
-		// 				setCosts(formData.costs);
-		// 				setFormState(formData.formState);
-		// 			}
-		// 		} else {
-		// 			console.log("Invalid form data");
-		// 		}
-		// 	} else {
-		// 		console.log("No form data found");
-		// 	}
-		// 	hasLoadedTeamData.current = true;
-		// 	// } else {
-		// 	// console.log("TEAM: execution skipped, already ran");
-		// 	// return;
-		// 	// }
-		// };
-		// console.log("starting load");
-		// console.log("EXECUTE loadPersistentTeamData");
+
 		loadPersistentTeamData();
-		// console.log("EXECUTE loadPersistentFormDate");
-		// loadPersistentFormDate();
+
 		console.log("finished loading");
 	}, []);
 
-	// useEffect(() => {
-	// 	console.log("we have a new player (playerNamesChanged)");
-	// 	setPlayers((prev) => {
-	// 		return playersNames.map((name) => {
-	// 			const player = prev.find((player) => player.name === name);
-	// 			return player || { ...emptyPlayer, name };
-	// 		});
-	// 	});
-	// }, [playersNames]);
-	// save any changes to form as they happen
 	useEffect(() => {
 		const updatePersistentFormData = (players, costs, formState) => {
 			try {
 				let state = { players, costs, formState };
 				let initialState = {
 					players: [],
-					costs: _initialCosts,
+					costs: initialCosts,
 					formState: 0,
 				};
-				// console.log("DEFAULTS", initialState);
-				// console.log("seeing if the form state is default", state, initialState);
 				if (JSON.stringify(state) !== JSON.stringify(initialState)) {
 					// console.log("Saving form data to local storage: ", state);
 					localStorage.setItem("persistentFormState", JSON.stringify(state));
@@ -676,10 +610,9 @@ export const CostFormPage = () => {
 				console.error("Failed to update persistent form state:", error);
 			}
 		};
-		// console.log("something changed in the state");
 		// console.log("EXECUTE updatePersistentFormData");
 		updatePersistentFormData(players, costs, formState);
-	}, [players, costs, formState, _initialCosts]);
+	}, [players, costs, formState]);
 	const clearForm = () => {
 		const clearedPlayers = players.map((player) => ({
 			...player,
@@ -688,7 +621,7 @@ export const CostFormPage = () => {
 			owes: [],
 		}));
 		setPlayers(clearedPlayers);
-		setCosts(_initialCosts);
+		setCosts(initialCosts);
 		setFormState(0);
 		localStorage.removeItem("persistentFormState");
 	};

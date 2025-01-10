@@ -1,0 +1,52 @@
+// const loadPersistentFormDate = () => {
+		// 	// if (hasLoadedTeamData.current) {
+		// 	const rawFormData = localStorage.getItem("persistentFormState");
+		// 	if (rawFormData) {
+		// 		const formData = JSON.parse(rawFormData);
+		// 		console.log("Found the form data fro local storage", formData);
+		// 		if (
+		// 			formData.players &&
+		// 			formData.costs &&
+		// 			formData.formState !== undefined
+		// 		) {
+		// 			if (
+		// 				JSON.stringify(formData.players) !==
+		// 					JSON.stringify([emptyPlayer]) &&
+		// 				JSON.stringify(formData.costs) !== JSON.stringify(_initialCosts) &&
+		// 				formState === 0
+		// 			) {
+		// 				console.log("FORM STATE IS INITIAL STATE: DO NOTHING");
+		// 			} else {
+		// 				setPlayers(formData.players);
+		// 				setCosts(formData.costs);
+		// 				setFormState(formData.formState);
+		// 			}
+		// 		} else {
+		// 			console.log("Invalid form data");
+		// 		}
+		// 	} else {
+		// 		console.log("No form data found");
+		// 	}
+		// 	hasLoadedTeamData.current = true;
+		// 	// } else {
+		// 	// console.log("TEAM: execution skipped, already ran");
+		// 	// return;
+		// 	// }
+		// };
+		// console.log("starting load");
+		// console.log("EXECUTE loadPersistentTeamData");
+        // console.log("EXECUTE loadPersistentFormDate");
+		// loadPersistentFormDate();
+
+
+
+        // useEffect(() => {
+	// 	console.log("we have a new player (playerNamesChanged)");
+	// 	setPlayers((prev) => {
+	// 		return playersNames.map((name) => {
+	// 			const player = prev.find((player) => player.name === name);
+	// 			return player || { ...emptyPlayer, name };
+	// 		});
+	// 	});
+	// }, [playersNames]);
+	// save any changes to form as they happen

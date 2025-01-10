@@ -1,4 +1,4 @@
-import { useTeam } from "../../ContextProviders/team/useTeam";
+import { useTeam } from "../../providers/team/useTeam";
 
 export const CurrentState = () => {
 	const { teamName, teamNumber, players } = useTeam();
