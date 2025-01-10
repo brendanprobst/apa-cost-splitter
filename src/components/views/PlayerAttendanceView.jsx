@@ -1,7 +1,9 @@
+import { useCosts } from "../../providers/costs/useCosts";
 import { useTeam } from "../../providers/team/useTeam";
 
 export const PlayerAttendanceView = () => {
 	const { players, setPlayers } = useTeam();
+	const { assignPayerToCost, assignAmountToCost } = useCosts();
 	const togglePlayerPlayedMatch = (name) => {
 		setPlayers((prev) =>
 			prev.map((player) =>
