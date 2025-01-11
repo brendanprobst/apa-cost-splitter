@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useCosts } from "../../providers/costs/useCosts";
-import { useTeam } from "../../providers/team/useTeam";
-import { useGlobal } from "../../providers/global/useGlobal";
-import { AdvancedCostSplittingInfoModal } from "../modals/AdvancedCostSplittingInfoModal";
+import { useCosts } from "../../../providers/costs/useCosts";
+import { useTeam } from "../../../providers/team/useTeam";
+import { useGlobal } from "../../../providers/global/useGlobal";
+import { AdvancedCostSplittingInfoModal } from "../../modals/AdvancedCostSplittingInfoModal";
 
 export const AssignCostsView = () => {
 	const { players } = useTeam();

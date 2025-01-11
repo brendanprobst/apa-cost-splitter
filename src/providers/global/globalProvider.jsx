@@ -7,7 +7,16 @@ export const GlobalProvider = ({ children }) => {
 	const [settings, setSettings] = useState({
 		useHubMethod: true,
 	});
-	const value = { formState, setFormState, settings, setSettings };
+	const [currentWeek, setCurrentWeek] = useState("");
+
+	const value = {
+		formState,
+		setFormState,
+		settings,
+		setSettings,
+		currentWeek,
+		setCurrentWeek,
+	};
 	return (
 		<GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>
 	);
