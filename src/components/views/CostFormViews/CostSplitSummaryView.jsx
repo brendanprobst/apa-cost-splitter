@@ -8,24 +8,25 @@ export const CostSplitSummaryView = () => {
 	const { costs } = useCosts();
 	const leagueZelleEmail = "brooklynqueenspayment@gmail.com";
 
-	const generateOwsString = () => {
+	const generateOwesString = () => {
 		// Generate a concise summary string
 		console.log("About to consolidate who owes who");
 		console.log(players);
-		//CRITICAL DON'T LET THIS STRING START WITH A WORD FOLLOWED BY A COLON
-		// BLAHBLAH: <-- BAD
 
 		let summary = "Cost Breakdown\n\n";
+		// CRITICAL DON'T LET THIS STRING START WITH A WORD FOLLOWED BY A COLON
+		// BLAHBLAH: <-- BAD
+
 		// Loop through each player to build their summary string
 		players.forEach((player) => {
 			console.log(player, player.totalPaid, player.totalShouldHavePaid);
 			let balanceString = `${
 				player.totalPaid > player.totalShouldHavePaid
-					? "Should receive "
-					: "Owes "
-			} a total of $${Math.abs(
-				player.totalShouldHavePaid - player.totalPaid
-			).toFixed(2)}\n`;
+					? "is net owed "
+					: "net owes "
+			} $${Math.abs(player.totalShouldHavePaid - player.totalPaid).toFixed(
+				2
+			)}\n`;
 			let oweString = `${player.name}: ${balanceString}`;
 
 			// Combine all debts by person owed to, summing up amounts
@@ -47,7 +48,7 @@ export const CostSplitSummaryView = () => {
 			} else {
 				// Format each debt as "amount to person"
 				oweString += realDebts
-					.map(([owedTo, amount]) => `- ${amount.toFixed(2)} to ${owedTo}`)
+					.map(([owedTo, amount]) => `- send ${amount.toFixed(2)} to ${owedTo}`)
 					.join("\n");
 			}
 			if (oweString.indexOf("nothing") === -1) {
@@ -63,8 +64,9 @@ export const CostSplitSummaryView = () => {
 		// if someone owes nothing, remove them from the summary
 		return summary;
 	};
+
 	const copyWhoOwesWho = () => {
-		const message = generateOwsString();
+		const message = generateOwesString();
 		// Decode URL encoded text if needed
 		const decodedMessage = decodeURIComponent(message);
 		navigator.clipboard.writeText(decodedMessage).then(
@@ -77,6 +79,7 @@ export const CostSplitSummaryView = () => {
 			}
 		);
 	};
+
 	const handleGenerateZelleMessage = (team, currentWeek) => {
 		return `Team Number - ${
 			team?.number ? team.number : "Team Number"

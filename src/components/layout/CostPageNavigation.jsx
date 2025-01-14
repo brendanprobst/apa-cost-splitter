@@ -1,10 +1,10 @@
 import { useCosts } from "../../providers/costs/useCosts";
 import { useGlobal } from "../../providers/global/useGlobal";
 import { useTeam } from "../../providers/team/useTeam";
+import { getCurrentWeek } from "../../utils/functions/dates/getCurrentWeek";
 
 export const CostPageNavigation = () => {
-	const { formState, setFormState, getCurrentWeek, setCurrentWeek } =
-		useGlobal();
+	const { formState, setFormState, setCurrentWeek } = useGlobal();
 	const { players, resetPlayerFormState } = useTeam();
 	const { costs, addRecipientsToCost, assignOwes, resetCostsFormState } =
 		useCosts();

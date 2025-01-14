@@ -67,6 +67,7 @@ export const CostsProvider = ({ children }) => {
 		);
 	};
 	const assignOwes = () => {
+		console.log("assigning owes");
 		// Clear existing owes first
 		setPlayers((prev) => prev.map((player) => ({ ...player, owes: [] })));
 

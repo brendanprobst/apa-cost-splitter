@@ -44,7 +44,6 @@ export const CostFormPage = () => {
 		};
 
 		loadPersistentTeamData();
-		console.log("Loaded team", { team });
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
