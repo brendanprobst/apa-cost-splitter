@@ -13,14 +13,8 @@ import { AssignCostsView } from "../components/views/CostFormViews/AssignCostsVi
 import { CostSplitSummaryView } from "../components/views/CostFormViews/CostSplitSummaryView";
 
 export const CostFormPage = () => {
-	const {
-		teamName,
-		setTeamName,
-		setTeamNumber,
-		players,
-		setPlayers,
-		setPlayersNames,
-	} = useTeam();
+	const { teamName, setTeamName, setTeamNumber, players, setPlayersNames } =
+		useTeam();
 	const { costs } = useCosts();
 	const { formState } = useGlobal();
 
