@@ -3,25 +3,17 @@ import { useTeam } from "../../providers/team/useTeam";
 import { emptyPlayer } from "../../utils/constants/players/emptyPlayer";
 import PropTypes from "prop-types";
 import { pushStateToUrl } from "../../utils/functions/localStorage/pushStateToUrl";
-import { updatePersistentTeamData } from "../../utils/functions/localStorage/updatePersistentTeamData";
+// import { updatePersistentTeamData } from "../../utils/functions/localStorage/updatePersistentTeamData";
 
 export const ManageTeamModal = ({ isOpen, setIsOpen }) => {
-	const {
-		teamName,
-		teamNumber,
-		setTeamNumber,
-		setTeamName,
-		players,
-		setPlayers,
-	} = useTeam();
-	console.log(teamName, teamNumber);
-	const [_teamName, _setTeamName] = useState(teamName);
-	const [_teamNumber, _setTeamNumber] = useState(teamNumber);
-	const [_players, _setPlayers] = useState(players);
+	const { team, setTeam, players, setPlayers } = useTeam();
+	const [_teamName, _setTeamName] = useState("");
+	const [_teamNumber, _setTeamNumber] = useState("");
+	const [_players, _setPlayers] = useState([]);
 
 	useEffect(() => {
-		_setTeamName(teamName);
-		_setTeamNumber(teamNumber);
+		_setTeamName(team.name);
+		_setTeamNumber(team.number);
 		_setPlayers(players);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isOpen]);
@@ -30,12 +22,14 @@ export const ManageTeamModal = ({ isOpen, setIsOpen }) => {
 		const filteredPlayers = _players.filter(
 			(player) => player.name.trim() !== ""
 		);
-		pushStateToUrl(filteredPlayers, _teamName, _teamNumber);
-		setTeamName(_teamName);
-		setTeamNumber(_teamNumber);
+		pushStateToUrl(_teamName, _teamNumber, filteredPlayers);
+		setTeam({
+			name: _teamName,
+			number: _teamNumber,
+		});
 		setPlayers(filteredPlayers);
 
-		updatePersistentTeamData(filteredPlayers, _teamName, _teamNumber);
+		//updatePersistentTeamData(filteredPlayers, _teamName, _teamNumber);
 		setIsOpen(false);
 	};
 	const handleCancel = () => {

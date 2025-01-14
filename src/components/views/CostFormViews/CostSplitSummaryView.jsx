@@ -4,7 +4,7 @@ import { useTeam } from "../../../providers/team/useTeam";
 
 export const CostSplitSummaryView = () => {
 	const { currentWeek } = useGlobal();
-	const { teamName, teamNumber, players } = useTeam();
+	const { team, players } = useTeam();
 	const { costs } = useCosts();
 	const leagueZelleEmail = "brooklynqueenspayment@gmail.com";
 
@@ -77,15 +77,15 @@ export const CostSplitSummaryView = () => {
 			}
 		);
 	};
-	const handleGenerateZelleMessage = (teamName, teamNumber, currentWeek) => {
-		return `Team Number: ${
-			teamNumber ? teamNumber : "Team Number"
-		}\nTeam Name: ${teamName ? teamName : "Team Name"}\nWeek # - ${
+	const handleGenerateZelleMessage = (team, currentWeek) => {
+		return `Team Number - ${
+			team?.number ? team.number : "Team Number"
+		}\nTeam Name - ${team?.name ? team.name : "Team Name"}\nWeek # - ${
 			currentWeek ? currentWeek : "Week Number"
 		}`;
 	};
-	const handleCopyZelleMessage = (teamName, teamNumber, currentWeek) => {
-		let message = handleGenerateZelleMessage(teamName, teamNumber, currentWeek);
+	const handleCopyZelleMessage = (team, currentWeek) => {
+		let message = handleGenerateZelleMessage(team, currentWeek);
 		navigator.clipboard.writeText(message).then(
 			() => {
 				alert("Zelle message copied to clipboard!");
@@ -119,22 +119,20 @@ export const CostSplitSummaryView = () => {
 				<p className="zelle-subject-instructions">
 					In the subject include:
 					<span className="zelle-subject">
-						{handleGenerateZelleMessage(teamName, teamNumber, currentWeek)}
+						{handleGenerateZelleMessage(team, currentWeek)}
 					</span>
 				</p>
 				<div className="zelle-buttons">
 					<button
 						className="zelle-copy-btn"
 						onClick={() => {
-							handleCopyZelleEmail(teamName, teamNumber, currentWeek);
+							handleCopyZelleEmail();
 						}}>
 						Copy Zelle Email
 					</button>
 					<button
 						className="zelle-copy-btn"
-						onClick={() =>
-							handleCopyZelleMessage(teamName, teamNumber, currentWeek)
-						}>
+						onClick={() => handleCopyZelleMessage(team, currentWeek)}>
 						Copy Zelle Subject
 					</button>
 				</div>

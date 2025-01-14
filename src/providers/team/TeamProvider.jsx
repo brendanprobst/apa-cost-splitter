@@ -4,8 +4,7 @@ import { TeamContext } from "./TeamContext";
 import { emptyPlayer } from "../../utils/constants/players/emptyPlayer";
 
 export const TeamProvider = ({ children }) => {
-	const [teamName, setTeamName] = useState("");
-	const [teamNumber, setTeamNumber] = useState("");
+	const [team, setTeam] = useState({});
 	const [players, setPlayers] = useState([]);
 	const [playersNames, setPlayersNames] = useState([]);
 
@@ -27,10 +26,8 @@ export const TeamProvider = ({ children }) => {
 	};
 
 	const value = {
-		teamName,
-		teamNumber,
-		setTeamName,
-		setTeamNumber,
+		team,
+		setTeam,
 		players,
 		setPlayers,
 		playersNames,

@@ -1,4 +1,4 @@
-export const pushStateToUrl = (players, teamName, teamNumber) => {
+export const pushStateToUrl = (teamName, teamNumber, players) => {
 	const newUrl = new URL(window.location);
 	const playersNames = players.map((p) => p.name).join(",");
 	newUrl.searchParams.set("teamName", teamName);

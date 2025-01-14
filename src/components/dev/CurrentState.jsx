@@ -1,7 +1,9 @@
+import { useCosts } from "../../providers/costs/useCosts";
 import { useTeam } from "../../providers/team/useTeam";
 
 export const CurrentState = () => {
-	const { teamName, teamNumber, players } = useTeam();
+	const { team, players } = useTeam();
+	const { costs } = useCosts();
 	// costs,
 	// newCost,
 	// formState,
@@ -11,9 +13,9 @@ export const CurrentState = () => {
 			<pre>
 				{JSON.stringify(
 					{
-						teamName,
-						teamNumber,
+						team,
 						players,
+						costs,
 					},
 					null,
 					2

@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { ManageTeamModal } from "../modals/ManageTeamModal";
-import PropTypes from "prop-types";
 import { useTeam } from "../../providers/team/useTeam";
 import { useCosts } from "../../providers/costs/useCosts";
 import { useGlobal } from "../../providers/global/useGlobal";
 
-export const CostPageHeader = ({ players }) => {
-	const { teamName, teamNumber, resetPlayerFormState } = useTeam();
+export const CostPageHeader = () => {
+	const { team, players, resetPlayerFormState } = useTeam();
 	const { resetCostsFormState } = useCosts();
 	const { setFormState } = useGlobal();
 	const [isManageTeamModalOpen, setIsManageTeamModalOpen] = useState(false);
@@ -17,8 +16,8 @@ export const CostPageHeader = ({ players }) => {
 	};
 	const handleCopyShareLink = () => {
 		const newUrl = new URL(window.location);
-		newUrl.searchParams.set("team", teamName);
-		newUrl.searchParams.set("teamNumber", teamNumber);
+		newUrl.searchParams.set("team", team.name);
+		newUrl.searchParams.set("teamNumber", team.number);
 		newUrl.searchParams.set("players", players.map((p) => p.name).join(","));
 		navigator.clipboard.writeText(newUrl.toString()).then(
 			() => {
@@ -36,8 +35,10 @@ export const CostPageHeader = ({ players }) => {
 				<h4 className="app-title">APA Cost Splitter</h4>
 				<div className="flex flex-wrap gap-4 justify-between items-end">
 					<div>
-						{teamName && <h2 className="team-name">Team {teamName}</h2>}
-						{teamNumber && <h3 className="team-number">{teamNumber}</h3>}
+						<h2 className="team-name">
+							Team {team.name ? team.name : "Not Found"}
+						</h2>
+						<h3 className="team-number">{team.number}</h3>
 						<div className="flex gap-2">
 							<button
 								onClick={() =>
@@ -65,11 +66,4 @@ export const CostPageHeader = ({ players }) => {
 			</div>
 		</>
 	);
-};
-CostPageHeader.propTypes = {
-	players: PropTypes.arrayOf(
-		PropTypes.shape({
-			name: PropTypes.string,
-		})
-	),
 };
