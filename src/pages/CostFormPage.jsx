@@ -24,20 +24,8 @@ export const CostFormPage = () => {
 	const { costs } = useCosts();
 	const { formState } = useGlobal();
 
-	// on page reload - handle loading state from localstorage
 	useEffect(() => {
 		const loadPersistentTeamData = () => {
-			// if (hasLoadedFormData.current) {
-			const handleLoadingPlayers = (playersNames) => {
-				setPlayers((prev) => {
-					return playersNames.map((name) => {
-						const player = prev.find((player) => player.name === name);
-						return player || { ...emptyPlayer, name };
-					});
-				});
-			};
-
-			// First check URL parameters
 			const urlParams = new URLSearchParams(window.location.search);
 			const teamNameFromUrl = urlParams.get("teamName");
 			const teamNumberFromUrl = urlParams.get("teamNumber");
@@ -50,11 +38,6 @@ export const CostFormPage = () => {
 				teamNumberFromUrl &&
 				playersNamesFromUrl.length > 0
 			) {
-				// console.log("Found team data in URL", {
-				// 	team: teamNameFromUrl,
-				// 	players: playersNamesFromUrl,
-				// 	teamNumber: teamNumberFromUrl,
-				// });
 				updatePersistentTeamData(
 					playersNamesFromUrl,
 					teamNameFromUrl,
@@ -62,38 +45,16 @@ export const CostFormPage = () => {
 				);
 				setTeamName(teamNameFromUrl);
 				setTeamNumber(teamNumberFromUrl);
-
 				setPlayersNames(playersNamesFromUrl);
-				handleLoadingPlayers(playersNamesFromUrl);
 				return;
-			}
-
-			// If no URL data, check localStorage
-			const localStorageData = localStorage.getItem("persistentTeamState");
-			if (localStorageData) {
-				try {
-					const teamData = JSON.parse(localStorageData);
-					// console.log("Found team data in local storage", teamData);
-					const playersNames = teamData?.players;
-					// console.log(playersNames);
-					if (!playersNames || playersNames.length === 0) {
-						console.warn("No valid players found in local storage");
-					}
-					setTeamName(teamData.team);
-					setTeamNumber(teamData.teamNumber);
-					setPlayersNames(playersNames);
-					handleLoadingPlayers(playersNames);
-				} catch (e) {
-					console.error("Failed to load team data from local storage", e);
-				}
 			} else {
-				console.warn("No team data found in URL or local storage");
+				console.warn("No team data found in URL");
 			}
 		};
 
 		loadPersistentTeamData();
 
-		console.log("finished loading");
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
@@ -118,10 +79,6 @@ export const CostFormPage = () => {
 		// console.log("EXECUTE updatePersistentFormData");
 		updatePersistentFormData(players, costs, formState);
 	}, [players, costs, formState]);
-	// const clearForm = () => {
-	// 	setFormState(0);
-	// 	localStorage.removeItem("persistentFormState");
-	// };
 
 	return (
 		<div className="app-container">
@@ -137,7 +94,7 @@ export const CostFormPage = () => {
 				{formState === 2 ? <CostSplitSummaryView /> : <></>}
 			</div>
 			<AppFooter />
-			<CurrentState />
+			{/* <CurrentState /> */}
 		</div>
 	);
 };

@@ -72,3 +72,26 @@
 // 		}
 // 	}
 // }, []);
+
+
+			
+			
+// If no URL data, check localStorage
+			// const localStorageData = localStorage.getItem("persistentTeamState");
+			// if (localStorageData) {
+			// 	try {
+			// 		const teamData = JSON.parse(localStorageData);
+			// 		// console.log("Found team data in local storage", teamData);
+			// 		const playersNames = teamData?.players;
+			// 		// console.log(playersNames);
+			// 		if (!playersNames || playersNames.length === 0) {
+			// 			console.warn("No valid players found in local storage");
+			// 		}
+			// 		setTeamName(teamData.team);
+			// 		setTeamNumber(teamData.teamNumber);
+			// 		setPlayersNames(playersNames);
+			// 		handleLoadingPlayers(playersNames);
+			// 	} catch (e) {
+			// 		console.error("Failed to load team data from local storage", e);
+			// 	}
+			// }
