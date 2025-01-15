@@ -1,6 +1,6 @@
-import { useCosts } from "../../../providers/costs/useCosts";
-import { useGlobal } from "../../../providers/global/useGlobal";
-import { useTeam } from "../../../providers/team/useTeam";
+import { useCosts } from "../../providers/costs/useCosts";
+import { useGlobal } from "../../providers/global/useGlobal";
+import { useTeam } from "../../providers/team/useTeam";
 
 export const CostSplitSummaryView = () => {
 	const { currentWeek } = useGlobal();

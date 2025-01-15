@@ -1,14 +1,16 @@
 import { useEffect } from "react";
-import { CostPageHeader } from "../components/layout/CostPageHeader";
+
 import { useTeam } from "../providers/team/useTeam";
-import { updatePersistentTeamData } from "../utils/functions/localStorage/updatePersistentTeamData";
 import { useGlobal } from "../providers/global/useGlobal";
+import { CostPageHeader } from "../components/layout/CostPageHeader";
 import { AppFooter } from "../components/layout/AppFooter";
-import { PlayerAttendanceView } from "../components/views/CostFormViews/PlayerAttendanceView";
-import { AssignCostsView } from "../components/views/CostFormViews/AssignCostsView";
-import { CostSplitSummaryView } from "../components/views/CostFormViews/CostSplitSummaryView";
-import { CurrentState } from "../components/dev/CurrentState";
+import { PlayerAttendanceView } from "../components/views/PlayerAttendanceView";
+import { AdditionalCostsView } from "../components/views/AdditionalCostsView";
+import { CostSplitSummaryView } from "../components/views/CostSplitSummaryView";
 import { CostPageNavigation } from "../components/layout/CostPageNavigation";
+
+import { updatePersistentTeamData } from "../utils/functions/localStorage/updatePersistentTeamData";
+import { CurrentState } from "../components/dev/CurrentState";
 export const CostFormPage = () => {
 	const { team, setTeam, setPlayersNames } = useTeam();
 	const { formState } = useGlobal();
@@ -48,36 +50,13 @@ export const CostFormPage = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	// useEffect(() => {
-	// 	const updatePersistentFormData = (players, costs, formState) => {
-	// 		try {
-	// 			let state = { players, costs, formState };
-	// 			let initialState = {
-	// 				players: [],
-	// 				costs: initialCosts,
-	// 				formState: 0,
-	// 			};
-	// 			if (JSON.stringify(state) !== JSON.stringify(initialState)) {
-	// 				// console.log("Saving form data to local storage: ", state);
-	// 				localStorage.setItem("persistentFormState", JSON.stringify(state));
-	// 			} else {
-	// 				// console.log("They're the same do nothing");
-	// 			}
-	// 		} catch (error) {
-	// 			console.error("Failed to update persistent form state:", error);
-	// 		}
-	// 	};
-	// 	// console.log("EXECUTE updatePersistentFormData");
-	// 	updatePersistentFormData(players, costs, formState);
-	// }, [players, costs, formState]);
-
 	return (
 		<div className="app-container">
 			<CostPageHeader team={team} />
 
 			<div className="page">
 				{formState === 0 ? <PlayerAttendanceView /> : <></>}
-				{formState === 1 ? <AssignCostsView /> : <></>}
+				{formState === 1 ? <AdditionalCostsView /> : <></>}
 				{formState === 2 ? <CostSplitSummaryView /> : <></>}
 				<CostPageNavigation />
 			</div>

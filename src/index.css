@@ -51,11 +51,18 @@ p.subtle {
 }
 
 .player-item,
-.cost-item {
+.cost-card {
 	margin-bottom: 15px;
 	padding: 4px 10px;
 	background-color: #f9f9f9;
 	border-radius: 4px;
+}
+.cost-card-footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	gap: 10px;
+	margin-top: 10px;
 }
 .player-item {
 	display: flex;
@@ -355,30 +362,59 @@ input[type="number"] {
 	align-items: stretch;
 }
 .edit-cost-btn,
-.remove-cost-btn {
+.delete-cost-btn {
 	height: 30px !important;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
+.delete-cost-btn {
+	background-color: #e74c3c;
+}
 .recipient-buttons {
 	margin-top: -10px;
 	margin-bottom: 15px;
 }
-
+/* 
 .all-players-btn,
 .all-attendees-btn {
 	margin-right: 10px;
 	margin-bottom: 10px;
-}
+} */
 
 .player-selection {
 	margin-top: 15px;
 }
-
+.player-selection > .selection-title {
+	margin-bottom: 10px;
+}
+.player-selection > .content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 10px;
+}
+.player-selection > .content > .helper-buttons {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	gap: 5px;
+}
+.player-selection > .content > .helper-buttons > button {
+	align-self: stretch;
+}
+.player-selection > .content > .players-list {
+	flex-grow: 1;
+	overflow-x: hidden;
+	background-color: #f9f9f9;
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	padding: 5px;
+}
 .player-checkbox-label {
 	display: block;
 	margin-bottom: 5px;
+	size: 30px;
 }
 
 .shared-by {
@@ -547,6 +583,9 @@ input[type="number"] {
 /* Add these utility flex classes to the end of your existing AppStyles.css file */
 
 /* Flex container classes */
+.w-full {
+	width: 100%;
+}
 .flex {
 	display: flex;
 }

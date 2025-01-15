@@ -95,3 +95,27 @@
 			// 		console.error("Failed to load team data from local storage", e);
 			// 	}
 			// }
+
+			// useEffect(() => {
+	// 	const updatePersistentFormData = (players, costs, formState) => {
+	// 		try {
+	// 			let state = { players, costs, formState };
+	// 			let initialState = {
+	// 				players: [],
+	// 				costs: initialCosts,
+	// 				formState: 0,
+	// 			};
+	// 			if (JSON.stringify(state) !== JSON.stringify(initialState)) {
+	// 				// console.log("Saving form data to local storage: ", state);
+	// 				localStorage.setItem("persistentFormState", JSON.stringify(state));
+	// 			} else {
+	// 				// console.log("They're the same do nothing");
+	// 			}
+	// 		} catch (error) {
+	// 			console.error("Failed to update persistent form state:", error);
+	// 		}
+	// 	};
+	// 	// console.log("EXECUTE updatePersistentFormData");
+	// 	updatePersistentFormData(players, costs, formState);
+	// }, [players, costs, formState]);
+
