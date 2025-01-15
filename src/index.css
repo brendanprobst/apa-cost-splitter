@@ -514,14 +514,17 @@ input[type="number"] {
 	border-radius: 8px;
 	padding: 15px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	height: 100%;
+}
+.player-payment-summary .subtitle {
+	margin-bottom: 0;
 }
 
 .payment-details {
-	margin-top: 10px;
+	margin: 10px 0px;
 }
 
-.payment-details div {
-	padding: 5px 0;
+.payment-details > div {
 }
 
 .balance {
@@ -580,8 +583,53 @@ input[type="number"] {
 	font-size: 0.9rem;
 }
 
-/* Add these utility flex classes to the end of your existing AppStyles.css file */
+/* Collapsible styles */
+.collapsible-wrapper {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
 
+.collapsible-btn {
+	width: 100%;
+	padding: 25px 15px 10px 15px;
+	background-color: #f5f5f5;
+	border: none;
+	text-align: left;
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 1rem;
+	color: #333;
+	transition: background-color 0.2s ease;
+}
+
+.collapsible-btn:hover {
+	background-color: #e9e9e9;
+}
+
+.collapsible-btn:focus {
+	outline: none;
+	background-color: #e9e9e9;
+}
+.collapsible-title {
+	font-size: 1.2rem;
+}
+/* List utility classes */
+ul {
+	padding: 0;
+}
+ul > li {
+	list-style-type: none;
+}
+ul.default {
+	padding-left: 20px;
+}
+ul.default > li {
+	list-style-type: disc;
+}
 /* Flex container classes */
 .w-full {
 	width: 100%;
