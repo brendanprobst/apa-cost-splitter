@@ -100,7 +100,7 @@ export const CostSplitSummaryView = () => {
 					Copy Zelle Subject
 				</button>
 			</div>
-			<h2 className="result-title">Result</h2>
+			<h2 className="result-title">Cost Breakdown</h2>
 
 			<Collapsible title="League Dues Info" defaultOpen={false}>
 				<LeagueDuesInfoCard />
