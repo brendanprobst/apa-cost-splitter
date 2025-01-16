@@ -3,21 +3,39 @@ import { useTeam } from "../../providers/team/useTeam";
 
 export const OweSummaryCard = ({ player }) => {
 	const { players } = useTeam();
+	if (!player.playedMatch && !player.attended) {
+		return <></>;
+	}
 	return (
 		<>
 			<div key={player.name} className="player-payment-summary">
 				<h4 className="player-name">{player.name}</h4>
-				<div className="payment-details">
-					<div>Paid: ${player.totalPaid.toFixed(2)}</div>
-					<div>Should Have Paid: ${player.totalShouldHavePaid.toFixed(2)}</div>
+				<div className="payment-details-grid">
+					<div className="payment-detail-item">
+						<span className="detail-label">Paid:</span>
+						<span className="detail-value">${player.totalPaid.toFixed(2)}</span>
+					</div>
+					<div className="payment-detail-item">
+						<span className="detail-label">Should Have Paid:</span>
+						<span className="detail-value">
+							${player.totalShouldHavePaid.toFixed(2)}
+						</span>
+					</div>
 					<div
-						className={`balance ${
+						className={`payment-detail-item balance ${
 							player.totalPaid - player.totalShouldHavePaid >= 0
 								? "positive"
 								: "negative"
 						}`}>
-						Balance: $
-						{(player.totalPaid - player.totalShouldHavePaid).toFixed(2)}
+						<span className="detail-label">Net:</span>
+						<span
+							className={`detail-value balance ${
+								player.totalPaid > player.totalShouldHavePaid
+									? "positive"
+									: "negative"
+							}`}>
+							${(player.totalPaid - player.totalShouldHavePaid).toFixed(2)}
+						</span>
 					</div>
 				</div>
 

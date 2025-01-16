@@ -13,7 +13,7 @@ export const Collapsible = ({ title, children, defaultOpen = false }) => {
 				<span className="collapsible-title">{title}</span>
 				<span className="pr-2">{isOpen ? "▲" : "▼"}</span>
 			</button>
-			{isOpen && <div className="pl-4">{children}</div>}
+			{isOpen && <div className="p-4">{children}</div>}
 		</div>
 	);
 };

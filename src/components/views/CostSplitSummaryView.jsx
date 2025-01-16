@@ -1,13 +1,16 @@
 import { useCosts } from "../../providers/costs/useCosts";
+import { useGlobal } from "../../providers/global/useGlobal";
 import { useTeam } from "../../providers/team/useTeam";
+import { handleCopyZelleMessage } from "../../utils/functions/leagueDues/zelleSubject";
 import { CostBreakdownCard } from "../cards/CostBreakdownCard";
 import { LeagueDuesInfoCard } from "../cards/LeagueDuesInfoCard";
 import { OweSummaryCard } from "../cards/OweSummaryCard";
 import { Collapsible } from "../ui/Collapsible";
 
 export const CostSplitSummaryView = () => {
-	const { players } = useTeam();
+	const { players, team } = useTeam();
 	const { costs } = useCosts();
+	const { currentWeek } = useGlobal();
 
 	const generateOwesString = () => {
 		// Generate a concise summary string
@@ -83,12 +86,20 @@ export const CostSplitSummaryView = () => {
 
 	return (
 		<div className="summary">
-			<button
-				onClick={() => copyWhoOwesWho()}
-				className="full-width success-btn"
-				id="copy-who-owes-who-button">
-				Copy Who Owes
-			</button>
+			<div className="flex justify-center gap-2">
+				<button
+					onClick={() => copyWhoOwesWho()}
+					className="success-btn"
+					id="copy-who-owes-who-button">
+					Copy Who Owes Who
+				</button>
+				<button
+					className="zelle-copy-btn"
+					id="copy-zelle-subject-button"
+					onClick={() => handleCopyZelleMessage(team, currentWeek)}>
+					Copy Zelle Subject
+				</button>
+			</div>
 			<h2 className="result-title">Result</h2>
 
 			<Collapsible title="League Dues Info" defaultOpen={false}>
