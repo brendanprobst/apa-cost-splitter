@@ -147,17 +147,30 @@ button.error-btn {
 button.error-btn:hover {
 	background-color: #c0392b;
 }
+button.error-btn-outlined {
+	background-color: #fff;
+	color: #e74c3c;
+	border: 1px solid #e74c3c;
+}
+button.error-btn-outlined:hover {
+	background-color: #e74c3c;
+	color: #fff;
+}
 button.btn-link:hover {
 	color: #2980b9;
 	background: none;
 	text-decoration: none;
 }
-.next-button,
-.previous-button {
-	display: block;
-	width: 100%;
-	margin-top: 20px;
-	font-size: 16px;
+.fancy-btn {
+	background: linear-gradient(45deg, #3498db, #2980b9);
+	padding: 12px 24px;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: bold;
+	box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+	transition: all 0.3s ease;
+	letter-spacing: 1px;
+	border-radius: 8px;
 }
 #share-team-button {
 	background: linear-gradient(45deg, #3498db, #2980b9);
@@ -227,24 +240,25 @@ button.btn-link:hover {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.app-title {
-	font-size: 24px;
+.app-header-title {
+	font-size: 14px;
 	margin: 0;
 	font-weight: bold;
 	text-transform: uppercase;
 	letter-spacing: 2px;
+	color: #3498db;
 }
 
 .team-name {
 	font-size: 18px;
-	margin: 10px 0 0;
-	font-style: italic;
-	color: #3498db;
+	margin: 5px 0 0;
 }
 .team-number {
 	font-size: 16px;
 	opacity: 0.7;
+	font-weight: normal;
 	margin: 4px 0 20px;
+	color: #ddd;
 }
 /* Sub-header styles */
 .sub-header {
@@ -254,6 +268,14 @@ button.btn-link:hover {
 	justify-content: space-between;
 	align-items: center;
 	border-bottom: 1px solid #bdc3c7;
+	position: sticky;
+	top: 0;
+}
+.sub-header button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	background-color: #95a5a6;
+	border-color: #7f8c8d;
 }
 
 .sub-header button {
@@ -262,14 +284,19 @@ button.btn-link:hover {
 	margin: 0 5px;
 }
 
-.sub-header .clear-form-button {
-	background-color: #e74c3c;
+.next-button,
+.previous-button,
+.clear-form-button {
+	display: block;
+	font-size: 16px;
+	width: 25%;
 }
-
-.sub-header .clear-form-button:hover {
-	background-color: #c0392b;
+.next-button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	background-color: #95a5a6;
+	border-color: #7f8c8d;
 }
-
 .remove-cost-btn {
 	background-color: #e74c3c;
 	margin-left: 10px;
@@ -286,6 +313,7 @@ button.btn-link:hover {
 	justify-content: center;
 	align-items: center;
 	z-index: 1000;
+	overflow: hidden;
 }
 
 .modal-content {
@@ -295,6 +323,8 @@ button.btn-link:hover {
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	max-width: 500px;
 	width: 90%;
+	max-height: 90vh;
+	overflow-y: auto;
 }
 
 .modal-content h2 {

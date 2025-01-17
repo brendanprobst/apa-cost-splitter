@@ -2,8 +2,8 @@ import { useCosts } from "../../providers/costs/useCosts";
 import { useGlobal } from "../../providers/global/useGlobal";
 import { useTeam } from "../../providers/team/useTeam";
 import { getCurrentWeek } from "../../utils/functions/dates/getCurrentWeek";
-
-export const CostPageNavigation = () => {
+import PropTypes from "prop-types";
+export const CostPageNavigation = ({ variant }) => {
 	const { formState, setFormState, setCurrentWeek } = useGlobal();
 	const { players, resetPlayerFormState } = useTeam();
 	const { costs, addRecipientsToCost, assignOwes, resetCostsFormState } =
@@ -107,17 +107,35 @@ export const CostPageNavigation = () => {
 	};
 
 	return (
-		<div className="flex gap-2">
-			{formState !== 0 && (
-				<button onClick={() => handlePrevState()} className="previous-button">
-					Previous
+		<div className="sub-header">
+			<div className="flex w-full justify-between gap-4">
+				{variant === "sub-header" ? (
+					<>
+						<button
+							disabled={formState === 0}
+							onClick={() => handlePrevState()}
+							className="previous-button">
+							Previous
+						</button>
+						<button
+							className="clear-form-button error-btn-outlined"
+							onClick={() => clearForm()}>
+							Start Over
+						</button>
+					</>
+				) : (
+					<></>
+				)}
+				<button
+					disabled={formState === 2}
+					onClick={() => handleNextState()}
+					className={`next-button ${variant === "footer" ? "w-full" : ""}`}>
+					Next
 				</button>
-			)}
-			<button
-				onClick={handleNextState}
-				className={`next-button ${formState === 2 ? "error-btn" : ""}`}>
-				{formState < 2 ? "Next" : "Reset Form"}
-			</button>
+			</div>
 		</div>
 	);
+};
+CostPageNavigation.propTypes = {
+	variant: PropTypes.string,
 };

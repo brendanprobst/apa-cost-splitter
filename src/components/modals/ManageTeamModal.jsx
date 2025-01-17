@@ -58,19 +58,24 @@ export const ManageTeamModal = ({ isOpen, setIsOpen }) => {
 						onChange={(e) => _setTeamName(e.target.value)}
 					/>
 				</div>
-				<button
-					onClick={() => {
-						_setPlayers(
-							_players
-								? [..._players, { ...emptyPlayer, name: "" }]
-								: [...players, { ...emptyPlayer, name: "" }]
-						);
-					}}>
-					Add Player
-				</button>
-				<div className="form-group">
-					<label>Players:</label>
-					<div style={{ maxHeight: "30vh", overflowY: "auto" }}>
+
+				<div className="form-group player-list">
+					<div className="flex justify-between items-end mb-4">
+						<label className="mb-0">Players:</label>
+						<button
+							className="success-btn"
+							onClick={() => {
+								_setPlayers(
+									_players
+										? [..._players, { ...emptyPlayer, name: "" }]
+										: [...players, { ...emptyPlayer, name: "" }]
+								);
+							}}>
+							Add Player
+						</button>
+					</div>
+
+					<div>
 						{(_players ? _players : players).map((player, index) => (
 							<div key={index} className="player-input">
 								<input

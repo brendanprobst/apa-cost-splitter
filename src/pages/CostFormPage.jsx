@@ -53,13 +53,14 @@ export const CostFormPage = () => {
 	return (
 		<div className="app-container">
 			<CostPageHeader team={team} />
+			<CostPageNavigation variant={"sub-header"} />
 
 			<div className="page">
 				{formState === 0 ? <PlayerAttendanceView /> : <></>}
 				{formState === 1 ? <AdditionalCostsView /> : <></>}
 				{formState === 2 ? <CostSplitSummaryView /> : <></>}
-				<CostPageNavigation />
 			</div>
+			<CostPageNavigation variant={"footer"} />
 			<AppFooter />
 			<CurrentState />
 		</div>
