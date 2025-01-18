@@ -28,8 +28,8 @@ export const CostPageHeader = () => {
 					<div>
 						<h1 className="app-header-title">APA Cost Splitter</h1>
 						<h2 className="team-name">
-							Team {team.name ? team.name : "Not Found"}{" "}
-							<span className="team-number">{team.number}</span>
+							Team {team?.name ? team.name : "Not Found"}{" "}
+							<span className="team-number">{team?.number}</span>
 						</h2>
 					</div>
 					<button

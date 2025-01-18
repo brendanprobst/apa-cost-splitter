@@ -13,13 +13,7 @@ export const CostPageNavigation = ({ variant }) => {
 		resetCostsFormState();
 		setFormState(0);
 	};
-	const handlePrevState = () => {
-		const formContainer = document.querySelector(".page");
-		if (formContainer) {
-			formContainer.scrollIntoView({ behavior: "smooth" });
-		}
-		setFormState(formState - 1);
-	};
+
 	const handleSavePage1 = (players) => {
 		try {
 			if (players.length === 0) {
@@ -47,7 +41,9 @@ export const CostPageNavigation = ({ variant }) => {
 			if (
 				costs.some((cost) => cost.name === "League Dues" && !cost.paidBy) ||
 				costs.some(
-					(cost) => cost.name === "Table Fees" && !cost.paidBy && !cost.cost
+					(cost) =>
+						cost.name === "Table Fees" &&
+						(!cost.paidBy || !cost.cost || isNaN(parseFloat(cost.cost)))
 				)
 			) {
 				throw new Error(
@@ -82,9 +78,7 @@ export const CostPageNavigation = ({ variant }) => {
 	// 	const height = window.scrollY;
 	// 	console.log("scroll height:", height);
 	// });
-	const handleNextState = () => {
-		// Scroll to top of page
-		let success = false;
+	const handleScrollToTarget = () => {
 		const formContainer = document.querySelector(".scroll-target");
 		const headerHeight =
 			document.querySelector("#cost-page-header")?.offsetHeight;
@@ -94,10 +88,15 @@ export const CostPageNavigation = ({ variant }) => {
 		console.log("formContainerStartingPoint", formContainerStartingPoint);
 		if (formContainer && headerHeight && formContainerStartingPoint) {
 			window.scrollTo({
-				top: formContainerStartingPoint,
+				top: headerHeight,
 				behavior: "smooth",
 			});
 		}
+	};
+	const handleNextState = () => {
+		// Scroll to top of page
+		let success = false;
+
 		if (formState === 2) {
 			clearForm();
 			setFormState(0);
@@ -113,12 +112,16 @@ export const CostPageNavigation = ({ variant }) => {
 				return;
 			}
 			setFormState(formState + 1);
+			handleScrollToTarget();
 		} catch (error) {
 			alert(error.message);
 			console.error("Error in handleNextState:", error);
 		}
 	};
-
+	const handlePrevState = () => {
+		handleScrollToTarget();
+		setFormState(formState - 1);
+	};
 	return (
 		<div className="sub-header" id="navigation">
 			<div className="flex w-full justify-between gap-4">

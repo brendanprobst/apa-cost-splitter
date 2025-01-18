@@ -12,8 +12,8 @@ export const ManageTeamModal = ({ isOpen, setIsOpen }) => {
 	const [_players, _setPlayers] = useState([]);
 
 	useEffect(() => {
-		_setTeamName(team.name);
-		_setTeamNumber(team.number);
+		_setTeamName(team?.name);
+		_setTeamNumber(team?.number);
 		_setPlayers(players);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isOpen]);

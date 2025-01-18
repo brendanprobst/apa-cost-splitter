@@ -1,22 +1,14 @@
-import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { TeamContext } from "./TeamContext";
-import { emptyPlayer } from "../../utils/constants/players/emptyPlayer";
+import { useLocalStorage } from "../../utils/functions/localStorage/useLocalStorage";
 
 export const TeamProvider = ({ children }) => {
-	const [team, setTeam] = useState({});
-	const [players, setPlayers] = useState([]);
-	const [playersNames, setPlayersNames] = useState([]);
-
-	useEffect(() => {
-		const newPlayers = playersNames.map((name) => {
-			return { ...emptyPlayer, name };
-		});
-		setPlayers(newPlayers);
-	}, [playersNames]);
+	const [team, setTeam] = useLocalStorage("team", {});
+	const [players, setPlayers] = useLocalStorage("players", []);
+	const [playersNames] = useLocalStorage("players-names", []);
 
 	const resetPlayerFormState = () => {
-		const clearedPlayers = players.map((player) => ({
+		const clearedPlayers = players?.map((player) => ({
 			...player,
 			playedMatch: false,
 			attended: false,
@@ -31,7 +23,6 @@ export const TeamProvider = ({ children }) => {
 		players,
 		setPlayers,
 		playersNames,
-		setPlayersNames,
 		resetPlayerFormState,
 	};
 	return <TeamContext.Provider value={value}>{children}</TeamContext.Provider>;

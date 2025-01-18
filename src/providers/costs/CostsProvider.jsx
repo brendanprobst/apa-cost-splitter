@@ -1,14 +1,14 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import { CostsContext } from "./CostsContext";
 import { initialCosts } from "../../utils/constants/costs/initialCosts";
 import { useTeam } from "../team/useTeam";
 import { useGlobal } from "../global/useGlobal";
+import { useLocalStorage } from "../../utils/functions/localStorage/useLocalStorage";
 
 export const CostsProvider = ({ children }) => {
 	const { settings } = useGlobal();
 	const { players, setPlayers } = useTeam();
-	const [costs, setCosts] = useState(initialCosts);
+	const [costs, setCosts] = useLocalStorage("costs", initialCosts);
 	const assignPayerToCost = (playerName, costName) => {
 		setCosts((prev) =>
 			prev.map((cost) =>

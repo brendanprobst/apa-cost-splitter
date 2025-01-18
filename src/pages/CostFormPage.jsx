@@ -9,10 +9,11 @@ import { AdditionalCostsView } from "../components/views/AdditionalCostsView";
 import { CostSplitSummaryView } from "../components/views/CostSplitSummaryView";
 import { CostPageNavigation } from "../components/layout/CostPageNavigation";
 
-import { updatePersistentTeamData } from "../utils/functions/localStorage/updatePersistentTeamData";
+// import { updatePersistentTeamData } from "../utils/functions/localStorage/updatePersistentTeamData";
 import { CurrentState } from "../components/dev/CurrentState";
+import { emptyPlayer } from "../utils/constants/players/emptyPlayer";
 export const CostFormPage = () => {
-	const { team, setTeam, setPlayersNames } = useTeam();
+	const { team, setTeam, setPlayers } = useTeam();
 	const { formState } = useGlobal();
 
 	useEffect(() => {
@@ -29,16 +30,19 @@ export const CostFormPage = () => {
 				teamNumberFromUrl &&
 				playersNamesFromUrl.length > 0
 			) {
-				updatePersistentTeamData(
-					playersNamesFromUrl,
-					teamNameFromUrl,
-					teamNumberFromUrl
-				);
+				// updatePersistentTeamData(
+				// 	playersNamesFromUrl,
+				// 	teamNameFromUrl,
+				// 	teamNumberFromUrl
+				// );
 				setTeam({
 					name: teamNameFromUrl,
 					number: teamNumberFromUrl,
 				});
-				setPlayersNames(playersNamesFromUrl);
+				const newPlayers = playersNamesFromUrl?.map((name) => {
+					return { ...emptyPlayer, name };
+				});
+				setPlayers(newPlayers);
 				return;
 			} else {
 				console.warn("No team data found in URL");

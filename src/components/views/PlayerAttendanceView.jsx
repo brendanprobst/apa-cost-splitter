@@ -3,7 +3,7 @@ import { useTeam } from "../../providers/team/useTeam";
 
 export const PlayerAttendanceView = () => {
 	const { players, setPlayers } = useTeam();
-	const { assignPayerToCost, assignAmountToCost } = useCosts();
+	const { costs, assignPayerToCost, assignAmountToCost } = useCosts();
 	const togglePlayerPlayedMatch = (name) => {
 		setPlayers((prev) =>
 			prev.map((player) =>
@@ -30,7 +30,7 @@ export const PlayerAttendanceView = () => {
 				<span className="checkbox-label">Played</span>
 				<span className="checkbox-label">Attended</span>
 			</div>
-			{players.map((player) => (
+			{players?.map((player) => (
 				<div key={player.name} className="player-item">
 					<span className="player-name">{player.name}</span>
 					<label className="checkbox-label">
@@ -56,9 +56,10 @@ export const PlayerAttendanceView = () => {
 			<h3>League Dues</h3>
 			<select
 				onChange={(e) => assignPayerToCost(e.target.value, "League Dues")}
+				value={costs.find((cost) => cost.name === "League Dues")?.paidBy || ""}
 				className="payer-select">
 				<option value="">Who Paid the League Dues?</option>
-				{players.map((player) => (
+				{players?.map((player) => (
 					<option key={player.name} value={player.name}>
 						{player.name}
 					</option>
@@ -67,9 +68,10 @@ export const PlayerAttendanceView = () => {
 			<h3>Table Fees</h3>
 			<select
 				onChange={(e) => assignPayerToCost(e.target.value, "Table Fees")}
+				value={costs.find((cost) => cost.name === "Table Fees")?.paidBy || ""}
 				className="payer-select">
 				<option value="">Who Paid the Table Fees?</option>
-				{players.map((player) => (
+				{players?.map((player) => (
 					<option key={player.name} value={player.name}>
 						{player.name}
 					</option>
@@ -78,6 +80,7 @@ export const PlayerAttendanceView = () => {
 			<input
 				type="number"
 				placeholder="Table Fees Amount"
+				value={costs.find((cost) => cost.name === "Table Fees")?.cost || ""}
 				onChange={(e) =>
 					assignAmountToCost("Table Fees", parseFloat(e.target.value))
 				}
