@@ -55,7 +55,7 @@ export const CostFormPage = () => {
 			<CostPageHeader team={team} />
 			<CostPageNavigation variant={"sub-header"} />
 
-			<div className="page">
+			<div className="page scroll-target">
 				{formState === 0 ? <PlayerAttendanceView /> : <></>}
 				{formState === 1 ? <AdditionalCostsView /> : <></>}
 				{formState === 2 ? <CostSplitSummaryView /> : <></>}

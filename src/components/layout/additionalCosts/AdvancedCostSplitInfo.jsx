@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGlobal } from "../../../providers/global/useGlobal";
 import { AdvancedCostSplittingInfoModal } from "../../modals/AdvancedCostSplittingInfoModal";
-export const AssignCostsViewFooter = () => {
+export const AdvancedCostSplitInfo = () => {
 	const { settings, setSettings } = useGlobal();
 	const [
 		isAdvancedCostSplittingInfoModalOpen,

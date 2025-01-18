@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useCosts } from "../../providers/costs/useCosts";
 import { AdditionalCostsHeader } from "../layout/additionalCosts/AdditionalCostsHeader";
 import { CostCard } from "../cards/CostCard";
-import { AssignCostsViewFooter } from "../layout/additionalCosts/AssignCostsViewFooter";
+import { AdvancedCostSplitInfo } from "../layout/additionalCosts/AdvancedCostSplitInfo";
 import { CostForm } from "../forms/CostForm";
 
 import { emptyCost } from "../../utils/constants/costs/emptyCost";
@@ -60,8 +60,9 @@ export const AdditionalCostsView = () => {
 	};
 
 	return (
-		<div className="cost-form">
+		<div className="cost-form scroll-target">
 			<AdditionalCostsHeader handleAddNewCost={() => handleOpenForm()} />
+			<AdvancedCostSplitInfo />
 
 			{costs?.map((cost, index) => (
 				<div key={index}>
@@ -72,7 +73,6 @@ export const AdditionalCostsView = () => {
 				</div>
 			))}
 
-			<AssignCostsViewFooter />
 			{addingCost ? (
 				<div className="modal-overlay" onClick={(e) => e.stopPropagation()}>
 					<div

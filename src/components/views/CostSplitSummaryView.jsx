@@ -85,7 +85,7 @@ export const CostSplitSummaryView = () => {
 	};
 
 	return (
-		<div className="summary">
+		<div className="summary scroll-target">
 			<div className="flex justify-center gap-2">
 				<button
 					onClick={() => copyWhoOwesWho()}

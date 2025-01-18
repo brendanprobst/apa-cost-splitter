@@ -78,12 +78,25 @@ export const CostPageNavigation = ({ variant }) => {
 			return false;
 		}
 	};
+	// document.addEventListener("scroll", () => {
+	// 	const height = window.scrollY;
+	// 	console.log("scroll height:", height);
+	// });
 	const handleNextState = () => {
 		// Scroll to top of page
 		let success = false;
-		const formContainer = document.querySelector(".page");
-		if (formContainer) {
-			formContainer.scrollIntoView({ behavior: "smooth" });
+		const formContainer = document.querySelector(".scroll-target");
+		const headerHeight =
+			document.querySelector("#cost-page-header")?.offsetHeight;
+		console.log("headerHeight", headerHeight);
+		const formContainerStartingPoint =
+			formContainer?.getBoundingClientRect().top;
+		console.log("formContainerStartingPoint", formContainerStartingPoint);
+		if (formContainer && headerHeight && formContainerStartingPoint) {
+			window.scrollTo({
+				top: formContainerStartingPoint,
+				behavior: "smooth",
+			});
 		}
 		if (formState === 2) {
 			clearForm();
@@ -107,7 +120,7 @@ export const CostPageNavigation = ({ variant }) => {
 	};
 
 	return (
-		<div className="sub-header">
+		<div className="sub-header" id="navigation">
 			<div className="flex w-full justify-between gap-4">
 				{variant === "sub-header" ? (
 					<>

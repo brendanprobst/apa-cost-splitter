@@ -5,7 +5,9 @@ export const AdditionalCostsHeader = ({ handleAddNewCost }) => {
 		<div className="form-title">
 			<div className="flex items-center justify-between">
 				<h2 className="">Additional Costs</h2>
-				<button onClick={() => handleAddNewCost()} className="add-cost-btn">
+				<button
+					onClick={() => handleAddNewCost()}
+					className="add-cost-btn success-btn">
 					Add New
 				</button>
 			</div>
