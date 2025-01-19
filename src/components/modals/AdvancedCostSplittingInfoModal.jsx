@@ -23,7 +23,7 @@ export const AdvancedCostSplittingInfoModal = ({ isOpen, setIsOpen }) => {
 					If you encounter any issues, please{" "}
 					<a href="mailto:bprobst1029@gmail.com">contact me</a>.
 				</p>
-				<div className="modal-actions">
+				<div className="form-actions">
 					<button onClick={() => setIsOpen(false)}>Close</button>
 				</div>
 			</div>

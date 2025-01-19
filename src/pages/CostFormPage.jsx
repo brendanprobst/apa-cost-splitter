@@ -21,6 +21,8 @@ export const CostFormPage = () => {
 			const urlParams = new URLSearchParams(window.location.search);
 			const teamNameFromUrl = urlParams.get("teamName");
 			const teamNumberFromUrl = urlParams.get("teamNumber");
+			const dayOfWeekFromUrl = urlParams.get("dayOfWeek");
+			const gameVersionFromUrl = urlParams.get("gameVersion");
 			const playersNamesFromUrl = urlParams.get("players")
 				? urlParams.get("players").split(",")
 				: [];
@@ -28,6 +30,8 @@ export const CostFormPage = () => {
 			if (
 				teamNameFromUrl &&
 				teamNumberFromUrl &&
+				dayOfWeekFromUrl &&
+				gameVersionFromUrl &&
 				playersNamesFromUrl.length > 0
 			) {
 				// updatePersistentTeamData(
@@ -38,6 +42,8 @@ export const CostFormPage = () => {
 				setTeam({
 					name: teamNameFromUrl,
 					number: teamNumberFromUrl,
+					dayOfWeek: dayOfWeekFromUrl,
+					gameVersion: gameVersionFromUrl,
 				});
 				const newPlayers = playersNamesFromUrl?.map((name) => {
 					return { ...emptyPlayer, name };
@@ -65,7 +71,6 @@ export const CostFormPage = () => {
 				{formState === 2 ? <CostSplitSummaryView /> : <></>}
 			</div>
 			<CostPageNavigation variant={"footer"} />
-			<AppFooter />
 			<CurrentState />
 		</div>
 	);

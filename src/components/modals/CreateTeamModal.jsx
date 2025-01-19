@@ -1,48 +1,17 @@
 import PropTypes from "prop-types";
-import { useTeam } from "../../providers/team/useTeam";
 import { useGlobal } from "../../providers/global/useGlobal";
 import { TeamForm } from "../forms/TeamForm";
-import { pushStateToUrl } from "../../utils/functions/localStorage/pushStateToUrl";
-// import { updatePersistentTeamData } from "../../utils/functions/localStorage/updatePersistentTeamData";
 
-export const ManageTeamModal = ({ isOpen, setIsOpen }) => {
-	const { team, setTeam, players, setPlayers } = useTeam();
+export const CreateTeamModal = ({ isOpen, setIsOpen }) => {
 	const { setAllTeams } = useGlobal();
-	// const [_teamName, _setTeamName] = useState("");
-	// const [_teamNumber, _setTeamNumber] = useState("");
-	// const [_dayOfWeek, _setDayOfWeek] = useState("");
-	// const [_gameVersion, _setGameVersion] = useState("");
-	// const [_players, _setPlayers] = useState([]);
-
-	// useEffect(() => {
-	// 	_setTeamName(team?.name);
-	// 	_setTeamNumber(team?.number);
-	// 	_setDayOfWeek(team?.dayOfWeek);
-	// 	_setGameVersion(team?.gameVersion);
-	// 	_setPlayers(players);
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, [isOpen]);
 
 	const handleSaveTeam = (updatedTeam, players) => {
-		console.log(updatedTeam, players);
+		console.log("updated", updatedTeam, players);
 		const filteredPlayers = players.filter(
 			(player) => player.name.trim() !== ""
 		);
 		const playersNames = filteredPlayers.map((player) => player.name);
-		pushStateToUrl(
-			updatedTeam.name,
-			updatedTeam.number,
-			updatedTeam.dayOfWeek,
-			updatedTeam.gameVersion,
-			filteredPlayers
-		);
-		setTeam({
-			name: team.name,
-			number: updatedTeam.number,
-			dayOfWeek: updatedTeam.dayOfWeek,
-			gameVersion: updatedTeam.gameVersion,
-		});
-		setPlayers(filteredPlayers);
+
 		setAllTeams((prev) => {
 			// If prev is empty, create new array with just this team
 			if (!prev?.length) {
@@ -66,6 +35,7 @@ export const ManageTeamModal = ({ isOpen, setIsOpen }) => {
 					if (team.number === updatedTeam.number) {
 						return {
 							...team,
+							number: updatedTeam.number,
 							name: updatedTeam.name,
 							dayOfWeek: updatedTeam.dayOfWeek,
 							gameVersion: updatedTeam.gameVersion,
@@ -78,7 +48,7 @@ export const ManageTeamModal = ({ isOpen, setIsOpen }) => {
 				return [
 					...prev,
 					{
-						number: updatedTeam.teamNumber,
+						number: updatedTeam.number,
 						name: updatedTeam.name,
 						dayOfWeek: updatedTeam.dayOfWeek,
 						gameVersion: updatedTeam.gameVersion,
@@ -99,9 +69,9 @@ export const ManageTeamModal = ({ isOpen, setIsOpen }) => {
 			<div className="modal-content">
 				<h2>Manage Team</h2>
 				<TeamForm
-					team={team}
-					players={players}
-					successButtonText={"Save"}
+					team={{}}
+					players={[]}
+					successButtonText={"Create Team"}
 					onSuccess={handleSaveTeam}
 					onCancel={handleCancel}
 				/>
@@ -109,7 +79,7 @@ export const ManageTeamModal = ({ isOpen, setIsOpen }) => {
 		</div>
 	);
 };
-ManageTeamModal.propTypes = {
+CreateTeamModal.propTypes = {
 	isOpen: PropTypes.bool,
 	setIsOpen: PropTypes.func.isRequired,
 };

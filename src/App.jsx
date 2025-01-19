@@ -1,17 +1,13 @@
-import { TeamProvider } from "./providers/team/TeamProvider.jsx";
-import { CostFormPage } from "./pages/CostFormPage.jsx";
-import { CostsProvider } from "./providers/costs/CostsProvider.jsx";
+import { AppFooter } from "./components/layout/AppFooter.jsx";
 import { GlobalProvider } from "./providers/global/GlobalProvider.jsx";
+import { AppRouter } from "./router/AppRouter.jsx";
 
 export const App = () => {
 	return (
-		<div>
+		<div className="app-container">
 			<GlobalProvider>
-				<TeamProvider>
-					<CostsProvider>
-						<CostFormPage />
-					</CostsProvider>
-				</TeamProvider>
+				<AppRouter />
+				<AppFooter />
 			</GlobalProvider>
 		</div>
 	);

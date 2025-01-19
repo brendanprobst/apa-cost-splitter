@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useGlobal } from "../../../providers/global/useGlobal";
 import { AdvancedCostSplittingInfoModal } from "../../modals/AdvancedCostSplittingInfoModal";
+import { useCosts } from "../../../providers/costs/useCosts";
 export const AdvancedCostSplitInfo = () => {
-	const { settings, setSettings } = useGlobal();
+	const { settings, setSettings } = useCosts();
 	const [
 		isAdvancedCostSplittingInfoModalOpen,
 		setIsAdvancedCostSplittingInfoModalOpen,
