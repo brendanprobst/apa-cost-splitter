@@ -4,7 +4,7 @@ import { useGlobal } from "../../providers/global/useGlobal";
 export const TeamCard = ({ team, playersNames, isEditing }) => {
 	const { setAllTeams } = useGlobal();
 	const navigate = useNavigate();
-	console.log(team);
+	console.log("from team card", team);
 	const deleteTeam = () => {
 		setAllTeams((prev) => {
 			return prev.filter((t) => t.number !== team.number);

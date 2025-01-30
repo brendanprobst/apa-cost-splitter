@@ -35,17 +35,25 @@ export const HomePage = () => {
 					<></>
 				)}
 				<div className="team-grid">
-					{allTeams.map((team) => {
-						return (
-							<div key={team.number}>
-								<TeamCard
-									team={team}
-									isEditing={isEditing}
-									playersNames={team.players}
-								/>
-							</div>
-						);
-					})}
+					{allTeams.length > 0 ? (
+						allTeams.map((team) => {
+							return (
+								<div key={team.number}>
+									<TeamCard
+										team={team}
+										isEditing={isEditing}
+										playersNames={team.players}
+									/>
+								</div>
+							);
+						})
+					) : (
+						<div className="flex justify-center items-center h-full">
+							<button className="btn" onClick={() => setIsCreatingTeam(true)}>
+								Add Team
+							</button>
+						</div>
+					)}
 				</div>
 			</div>
 			<CreateTeamModal isOpen={isCreatingTeam} setIsOpen={setIsCreatingTeam} />

@@ -8,7 +8,6 @@ export const TeamForm = ({
 	onCancel,
 	successButtonText,
 	onSuccess,
-	onFailure,
 }) => {
 	const [_teamName, _setTeamName] = useState(team.name || "");
 	const [_teamNumber, _setTeamNumber] = useState(team.number || "");

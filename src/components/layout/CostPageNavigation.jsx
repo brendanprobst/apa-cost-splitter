@@ -5,7 +5,7 @@ import { getCurrentWeek } from "../../utils/functions/dates/getCurrentWeek";
 import PropTypes from "prop-types";
 export const CostPageNavigation = ({ variant }) => {
 	const { formState, setFormState, setCurrentWeek } = useGlobal();
-	const { players, resetPlayerFormState } = useTeam();
+	const { players, resetPlayerFormState, team } = useTeam();
 	const { costs, addRecipientsToCost, assignOwes, resetCostsFormState } =
 		useCosts();
 	const clearForm = () => {
@@ -66,7 +66,7 @@ export const CostPageNavigation = ({ variant }) => {
 				throw new Error("No costs added. Please add costs before proceeding.");
 			}
 			assignOwes();
-			setCurrentWeek(getCurrentWeek());
+			setCurrentWeek(getCurrentWeek(team.dayOfWeek));
 			return true;
 		} catch (error) {
 			alert(error.message);

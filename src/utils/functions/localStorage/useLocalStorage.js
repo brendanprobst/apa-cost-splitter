@@ -1,31 +1,51 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export const useLocalStorage = (key, initialValue) => {
+	const isFirstRender = useRef(true);
+	const [isInitialized, setIsInitialized] = useState(false);
+
 	// Get stored value or use initialValue
 	const [storedValue, setStoredValue] = useState(() => {
 		try {
 			const item = window.localStorage.getItem(key);
-			// Check if item exists and is not undefined/null
-			if (!item) {
-				return initialValue;
+			console.log(`[${key}] Initial load:`, {
+				from: "localStorage",
+				value: item,
+			}); // DEBUG
+
+			let value = initialValue;
+			if (item) {
+				try {
+					value = JSON.parse(item);
+					console.log(`[${key}] Parsed value:`, value); // DEBUG
+				} catch {
+					window.localStorage.removeItem(key);
+				}
+			} else {
+				console.log(`[${key}] Using initial value:`, initialValue); // DEBUG
 			}
 
-			// Try to parse, return initialValue if parsing fails
-			try {
-				return JSON.parse(item);
-			} catch {
-				// If there's invalid JSON in localStorage, remove it and return initialValue
-				window.localStorage.removeItem(key);
-				return initialValue;
-			}
+			// Mark as initialized after initial load
+			setIsInitialized(true);
+			return value;
 		} catch (error) {
 			console.error("Error reading from localStorage:", error);
+			setIsInitialized(true);
 			return initialValue;
 		}
 	});
 
-	// Update localStorage when state changes
 	useEffect(() => {
+		if (isFirstRender.current) {
+			isFirstRender.current = false;
+			return;
+		}
+
+		console.log(`[${key}] State update:`, {
+			value: storedValue,
+			stack: new Error().stack,
+		}); // DEBUG with stack trace
+
 		try {
 			if (storedValue === undefined) {
 				window.localStorage.removeItem(key);
@@ -37,5 +57,5 @@ export const useLocalStorage = (key, initialValue) => {
 		}
 	}, [key, storedValue]);
 
-	return [storedValue, setStoredValue];
+	return [storedValue, setStoredValue, isInitialized];
 };
