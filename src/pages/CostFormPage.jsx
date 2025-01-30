@@ -86,7 +86,7 @@ export const CostFormPage = () => {
 				{formState === 2 ? <CostSplitSummaryView /> : <></>}
 			</div>
 			<CostPageNavigation variant={"footer"} />
-			<CurrentState />
+			{/* <CurrentState /> */}
 		</div>
 	);
 };
