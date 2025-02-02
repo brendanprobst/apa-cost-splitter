@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { useTeam } from "../providers/team/useTeam";
-import { useGlobal } from "../providers/global/useGlobal";
+import { useApp } from "../providers/app/useApp";
 import { CostPageHeader } from "../components/layout/CostPageHeader";
 import { PlayerAttendanceView } from "../components/views/PlayerAttendanceView";
 import { AdditionalCostsView } from "../components/views/AdditionalCostsView";
@@ -9,11 +9,11 @@ import { CostSplitSummaryView } from "../components/views/CostSplitSummaryView";
 import { CostPageNavigation } from "../components/layout/CostPageNavigation";
 
 // import { updatePersistentTeamData } from "../utils/functions/localStorage/updatePersistentTeamData";
-import { CurrentState } from "../components/dev/CurrentState";
+// import { CurrentState } from "../components/dev/CurrentState";
 import { emptyPlayer } from "../utils/constants/players/emptyPlayer";
 export const CostFormPage = () => {
 	const { team, setTeam, setPlayers, isStorageInitialized } = useTeam();
-	const { formState } = useGlobal();
+	const { formState } = useApp();
 
 	useEffect(() => {
 		// Only run after localStorage is initialized

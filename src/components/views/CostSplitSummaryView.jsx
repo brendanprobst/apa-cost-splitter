@@ -1,5 +1,5 @@
+import { useApp } from "../../providers/app/useApp";
 import { useCosts } from "../../providers/costs/useCosts";
-import { useGlobal } from "../../providers/global/useGlobal";
 import { useTeam } from "../../providers/team/useTeam";
 import { handleCopyZelleMessage } from "../../utils/functions/leagueDues/zelleSubject";
 import { CostBreakdownCard } from "../cards/CostBreakdownCard";
@@ -10,7 +10,7 @@ import { Collapsible } from "../ui/Collapsible";
 export const CostSplitSummaryView = () => {
 	const { players, team } = useTeam();
 	const { costs } = useCosts();
-	const { currentWeek } = useGlobal();
+	const { currentWeek } = useApp();
 
 	const generateOwesString = () => {
 		// Generate a concise summary string

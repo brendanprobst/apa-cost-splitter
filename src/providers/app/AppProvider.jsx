@@ -1,9 +1,9 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { GlobalContext } from "./GlobalContext";
+import { AppContext } from "./AppContext";
 import { useLocalStorage } from "../../utils/functions/localStorage/useLocalStorage";
 
-export const GlobalProvider = ({ children }) => {
+export const AppProvider = ({ children }) => {
 	const [formState, setFormState] = useLocalStorage("formState", 0);
 	const [allTeams, setAllTeams] = useLocalStorage("allTeams", []);
 
@@ -17,10 +17,8 @@ export const GlobalProvider = ({ children }) => {
 		currentWeek,
 		setCurrentWeek,
 	};
-	return (
-		<GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>
-	);
+	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
-GlobalProvider.propTypes = {
+AppProvider.propTypes = {
 	children: PropTypes.node.isRequired,
 };

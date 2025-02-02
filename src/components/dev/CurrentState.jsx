@@ -1,11 +1,11 @@
 import { useCosts } from "../../providers/costs/useCosts";
-import { useGlobal } from "../../providers/global/useGlobal";
+import { useApp } from "../../providers/app/useApp";
 import { useTeam } from "../../providers/team/useTeam";
 
 export const CurrentState = () => {
 	const { team, players } = useTeam();
 	const { costs } = useCosts();
-	const { allTeams, formState } = useGlobal();
+	const { allTeams, formState } = useApp();
 	// costs,
 	// newCost,
 	// formState,

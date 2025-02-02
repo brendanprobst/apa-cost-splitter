@@ -1,4 +1,4 @@
-import { useGlobal } from "../../providers/global/useGlobal";
+import { useApp } from "../../providers/app/useApp";
 import { useTeam } from "../../providers/team/useTeam";
 import {
 	handleCopyZelleMessage,
@@ -7,7 +7,7 @@ import {
 
 export const LeagueDuesInfoCard = () => {
 	const { team } = useTeam();
-	const { currentWeek } = useGlobal();
+	const { currentWeek } = useApp();
 
 	const leagueZelleEmail = "brooklynqueenspayment@gmail.com";
 

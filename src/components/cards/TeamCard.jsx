@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router";
-import { useGlobal } from "../../providers/global/useGlobal";
+import { useApp } from "../../providers/app/useApp";
 export const TeamCard = ({ team, playersNames, isEditing }) => {
-	const { setAllTeams } = useGlobal();
+	const { setAllTeams } = useApp();
 	const navigate = useNavigate();
 	console.log("from team card", team);
 	const deleteTeam = () => {

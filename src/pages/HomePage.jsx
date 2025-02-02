@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { TeamCard } from "../components/cards/TeamCard";
 import { HomePageHeader } from "../components/layout/HomeHeader";
-import { useGlobal } from "../providers/global/useGlobal";
+import { useApp } from "../providers/app/useApp";
 import { CreateTeamModal } from "../components/modals/CreateTeamModal";
 
 export const HomePage = () => {
-	const { allTeams } = useGlobal();
+	const { allTeams } = useApp();
 	const [isEditing, setIsEditing] = useState(false);
 	const [isCreatingTeam, setIsCreatingTeam] = useState(false);
 	return (

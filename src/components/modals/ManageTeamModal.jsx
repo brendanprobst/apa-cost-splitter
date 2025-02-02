@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import { useTeam } from "../../providers/team/useTeam";
-import { useGlobal } from "../../providers/global/useGlobal";
+import { useApp } from "../../providers/app/useApp";
 import { TeamForm } from "../forms/TeamForm";
 import { pushStateToUrl } from "../../utils/functions/localStorage/pushStateToUrl";
 // import { updatePersistentTeamData } from "../../utils/functions/localStorage/updatePersistentTeamData";
 
 export const ManageTeamModal = ({ isOpen, setIsOpen }) => {
 	const { team, setTeam, players, setPlayers } = useTeam();
-	const { setAllTeams } = useGlobal();
+	const { setAllTeams } = useApp();
 	// const [_teamName, _setTeamName] = useState("");
 	// const [_teamNumber, _setTeamNumber] = useState("");
 	// const [_dayOfWeek, _setDayOfWeek] = useState("");

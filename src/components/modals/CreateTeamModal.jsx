@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import { useGlobal } from "../../providers/global/useGlobal";
+import { useApp } from "../../providers/app/useApp";
 import { TeamForm } from "../forms/TeamForm";
 
 export const CreateTeamModal = ({ isOpen, setIsOpen }) => {
-	const { setAllTeams } = useGlobal();
+	const { setAllTeams } = useApp();
 
 	const handleSaveTeam = (updatedTeam, players) => {
 		console.log("updated", updatedTeam, players);
